@@ -17,12 +17,62 @@ type Props = {
 /*  Allowed MIME types & max size                                      */
 /* ------------------------------------------------------------------ */
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-const MAX_SIZE = 8 * 1024 * 1024; // 8 MB
+const MAX_SIZE = 25 * 1024 * 1024; // 25 MB (se comprime antes de subir)
 
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Compresión de imagen EN EL NAVEGADOR antes de subir                 */
+/* ------------------------------------------------------------------ */
+async function compressImage(file: File, maxW = 1280, quality = 0.7): Promise<File> {
+  // Si ya es pequeño, devolver tal cual
+  if (file.size < 300 * 1024) return file;
+
+  return new Promise((resolve) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let w = img.width;
+      let h = img.height;
+
+      // Reducir si es más ancho que maxW
+      if (w > maxW) {
+        h = Math.round((h * maxW) / w);
+        w = maxW;
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(img, 0, 0, w, h);
+
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) { resolve(file); return; }
+          // Si la compresión no redujo suficiente, bajar más la calidad
+          if (blob.size > 500 * 1024 && quality > 0.3) {
+            canvas.toBlob(
+              (b2) => resolve(b2 ? new File([b2], file.name, { type: 'image/jpeg' }) : file),
+              'image/jpeg',
+              0.4,
+            );
+          } else {
+            resolve(new File([blob], file.name, { type: 'image/jpeg' }));
+          }
+        },
+        'image/jpeg',
+        quality,
+      );
+    };
+    img.onerror = () => resolve(file); // si falla, sube original
+    img.src = url;
+  });
 }
 
 /* ------------------------------------------------------------------ */
@@ -35,55 +85,48 @@ export default function ReportModal({ open, onClose, onSubmitted }: Props) {
   const [location, setLocation] = useState('');
   const [directedTo, setDirectedTo] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string>('');
+  const [photoPreview, setPhotoPreview] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [status, setStatus] = useState<{ msg: string; isError?: boolean } | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [status, setStatus] = useState<{ msg: string; isError?: boolean } | null>(null);
 
   /* ---- cleanup object URL when photo changes or modal closes ---- */
   useEffect(() => {
-    return () => {
-      if (photoPreview) {
-        URL.revokeObjectURL(photoPreview);
-      }
-    };
+    if (photoPreview) {
+      return () => { URL.revokeObjectURL(photoPreview); };
+    }
   }, [photoPreview]);
 
-  /* ---- reset form on close with timeout ---- */
+  // Reset form when modal closes
   useEffect(() => {
     if (!open) {
-      const t = setTimeout(() => {
-        setCategory('basura');
-        setDescription('');
-        setLocation('');
-        setDirectedTo('');
-        setPhoto(null);
-        if (photoPreview) URL.revokeObjectURL(photoPreview);
-        setPhotoPreview('');
-        setSubmitting(false);
-        setUploading(false);
-        setUploadProgress(0);
-        setStatus(null);
-        setDragOver(false);
-      }, 250);
-      return () => clearTimeout(t);
+      setCategory('basura');
+      setDescription('');
+      setLocation('');
+      setDirectedTo('');
+      if (photoPreview) URL.revokeObjectURL(photoPreview);
+      setPhoto(null);
+      setPhotoPreview('');
+      setSubmitting(false);
+      setUploading(false);
+      setUploadProgress(0);
+      setStatus(null);
     }
   }, [open, photoPreview]);
 
-  /* ---- Escape key closes modal ---- */
+  // Close on Escape
   useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
+    const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && !submitting) onClose();
     };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
   }, [open, onClose, submitting]);
 
-  /* ---- file validation helper ---- */
+  /* ---- validate file ---- */
   const validateFile = useCallback((f: File): string | null => {
     if (!ALLOWED_TYPES.includes(f.type)) {
       return 'Tipo de archivo no permitido. Usa JPG, PNG, WEBP o GIF.';
@@ -96,16 +139,42 @@ export default function ReportModal({ open, onClose, onSubmitted }: Props) {
 
   /* ---- handle file selection (from input or drop) ---- */
   const handleFile = useCallback(
-    (f: File) => {
+    async (f: File) => {
       const err = validateFile(f);
       if (err) {
         setStatus({ msg: err, isError: true });
         return;
       }
-      if (photoPreview) URL.revokeObjectURL(photoPreview);
-      setPhoto(f);
-      setPhotoPreview(URL.createObjectURL(f));
-      setStatus(null);
+
+      // Mostrar estado de compresión
+      const originalSize = f.size;
+      setStatus({ msg: 'Comprimiendo foto...', isError: false });
+
+      try {
+        const compressed = await compressImage(f);
+        if (photoPreview) URL.revokeObjectURL(photoPreview);
+        setPhoto(compressed);
+        setPhotoPreview(URL.createObjectURL(compressed));
+
+        // Mostrar cuánto se redujo
+        if (compressed.size < originalSize) {
+          const saved = Math.round((1 - compressed.size / originalSize) * 100);
+          setStatus({
+            msg: `Foto comprimida: ${formatBytes(originalSize)} → ${formatBytes(compressed.size)} (-${saved}%)`,
+            isError: false,
+          });
+          // Limpiar mensaje después de 3 segundos
+          setTimeout(() => setStatus(null), 3000);
+        } else {
+          setStatus(null);
+        }
+      } catch {
+        // Si falla la compresión, usar original
+        if (photoPreview) URL.revokeObjectURL(photoPreview);
+        setPhoto(f);
+        setPhotoPreview(URL.createObjectURL(f));
+        setStatus(null);
+      }
     },
     [validateFile, photoPreview],
   );
@@ -453,7 +522,7 @@ export default function ReportModal({ open, onClose, onSubmitted }: Props) {
                   marginTop: 2,
                 }}
               >
-                JPG, PNG, WEBP o GIF · Máximo 8 MB
+                JPG, PNG, WEBP o GIF · Se comprime automáticamente
               </span>
             </div>
           ) : (
