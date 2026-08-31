@@ -47,8 +47,15 @@ export default function ReportsScreen({ refreshKey }: Props) {
         const r = await fetch('/api/reports?limit=200');
         const d = await r.json();
         if (cancelled) return;
-        if (d?.ok && Array.isArray(d.data)) setReports(d.data);
-        else setError(d?.error || 'Error al cargar');
+                if (d?.ok && Array.isArray(d.data)) {
+          setReports(d.data);
+          d.data.forEach((rep: Report) => {
+            if (rep.hasPhoto || rep.photoUrl) {
+              loadPhoto(rep.id);
+            }
+          });
+        }
+        else setError(d?.error || 'Error al cargar');;
       } catch (e: any) {
         if (!cancelled) setError(e?.message || 'Error de red');
       } finally {
