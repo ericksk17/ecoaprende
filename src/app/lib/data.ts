@@ -157,7 +157,7 @@ export const tips: Tip[] = [
 
 export const carouselSlides = [
   { id: 'maderas', title: 'Volcán Maderas', img: '/df39d81bd444bfa01311465181c72f94.jpg' },
-  { id: 'primavera', title: 'Playa Primavera', img: '/Sin título.jpg' },
+  { id: 'primavera', title: 'Playa Primavera', img: '/playa-primavera.jpg' },
   { id: 'playa_santa_cruz', title: 'Playa Santa Cruz', img: '/sto domingo.jpg' },
   { id: 'bomberos2', title: 'Bomberos de Ometepe', img: '/bomberos2.jpeg' },
 ];
