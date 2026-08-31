@@ -196,6 +196,7 @@ export type Report = {
   description: string;
   location: string | null;
   photoUrl: string | null;
+  hasPhoto?: boolean;
   status: string;
   reporter: string | null;
   directedTo: string | null;

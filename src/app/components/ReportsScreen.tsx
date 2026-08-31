@@ -1,8 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { categoryLabels, statusLabels, statusColors, emergencyContacts, whatsappNumber, type Report } from '../lib/data';
 import FlutterIcon from './FlutterIcon';
+
+function getImgSrc(photoUrl: string): string {
+  if (photoUrl.startsWith('data:')) return photoUrl;
+  return `/api${photoUrl}`;
+}
 
 type Props = {
   refreshKey: number;
@@ -15,6 +20,23 @@ export default function ReportsScreen({ refreshKey }: Props) {
   const [filter, setFilter] = useState<'all' | 'pending' | 'reviewed' | 'resolved'>('all');
   const [localRefresh, setLocalRefresh] = useState(0);
   const [lightbox, setLightbox] = useState<string | null>(null);
+
+  const [photoCache, setPhotoCache] = useState<Record<string, string>>({});
+  const loadingPhotos = useRef<Set<string>>(new Set());
+
+  const loadPhoto = useCallback(async (reportId: string) => {
+    if (photoCache[reportId] || loadingPhotos.current.has(reportId)) return;
+    loadingPhotos.current.add(reportId);
+    try {
+      const r = await fetch(`/api/reports/${reportId}?photo=true`);
+      const d = await r.json();
+      if (d?.ok && d.data?.photoUrl) {
+        setPhotoCache(prev => ({ ...prev, [reportId]: d.data.photoUrl }));
+      }
+    } catch { /* ignore */ } finally {
+      loadingPhotos.current.delete(reportId);
+    }
+  }, [photoCache]);
 
   useEffect(() => {
     let cancelled = false;
@@ -37,7 +59,6 @@ export default function ReportsScreen({ refreshKey }: Props) {
     return () => { cancelled = true; };
   }, [refreshKey, localRefresh]);
 
-  // Filtered list
   const visible = reports.filter(r => {
     if (filter !== 'all' && r.status !== filter) return false;
     return true;
@@ -50,12 +71,9 @@ export default function ReportsScreen({ refreshKey }: Props) {
         day: '2-digit', month: 'short', year: 'numeric',
         hour: '2-digit', minute: '2-digit',
       });
-    } catch {
-      return iso;
-    }
+    } catch { return iso; }
   };
 
-  // Material symbol per category
   const catIcon = (cat: string) =>
     cat === 'basura' ? 'delete'
     : cat === 'incendio' ? 'local_fire_department'
@@ -63,16 +81,29 @@ export default function ReportsScreen({ refreshKey }: Props) {
     : cat === 'contaminacion' ? 'water_drop'
     : 'report';
 
-  // Resolve contact name from directedTo key
   const contactLabel = (key: string | null) => {
     if (!key) return null;
     const c = emergencyContacts.find(e => e.key === key);
     return c ? `${c.name} · ${c.phone}` : key;
   };
 
+  const openLightbox = async (reportId: string) => {
+    if (photoCache[reportId]) {
+      setLightbox(getImgSrc(photoCache[reportId]));
+      return;
+    }
+    try {
+      const r = await fetch(`/api/reports/${reportId}?photo=true`);
+      const d = await r.json();
+      if (d?.ok && d.data?.photoUrl) {
+        setPhotoCache(prev => ({ ...prev, [reportId]: d.data.photoUrl }));
+        setLightbox(getImgSrc(d.data.photoUrl));
+      }
+    } catch { /* ignore */ }
+  };
+
   return (
     <>
-      {/* Hero banner — clickable to view full image */}
       <div
         className="eco-reports-hero eco-hero-clickable"
         onClick={() => setLightbox('/reports-hero.jpeg')}
@@ -81,11 +112,7 @@ export default function ReportsScreen({ refreshKey }: Props) {
         onKeyDown={(e) => { if (e.key === 'Enter') setLightbox('/reports-hero.jpeg'); }}
         aria-label="Ver imagen ampliada"
       >
-        <img
-          src="/reports-hero.jpeg"
-          alt="Bomberos y comunidad de Ometepe"
-          className="eco-reports-hero-img"
-        />
+        <img src="/reports-hero.jpeg" alt="Bomberos y comunidad de Ometepe" className="eco-reports-hero-img" />
         <div className="eco-reports-hero-overlay">
           <h3>Reportes ambientales</h3>
           <p>
@@ -98,7 +125,6 @@ export default function ReportsScreen({ refreshKey }: Props) {
         </div>
       </div>
 
-      {/* WhatsApp direct button */}
       <a
         className="eco-whatsapp-btn"
         href={`https://wa.me/${whatsappNumber}`}
@@ -113,30 +139,19 @@ export default function ReportsScreen({ refreshKey }: Props) {
         <span>+505 8836 3931</span>
       </a>
 
-      {/* Filter chips — M3 */}
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
         {(['all', 'pending', 'reviewed', 'resolved'] as const).map(s => (
-          <button
-            key={s}
-            className={`eco-chip ${filter === s ? 'selected' : ''}`}
-            onClick={() => setFilter(s)}
-          >
+          <button key={s} className={`eco-chip ${filter === s ? 'selected' : ''}`} onClick={() => setFilter(s)}>
             {s === 'all' ? `Todos (${reports.length})` : `${statusLabels[s]} (${reports.filter(r => r.status === s).length})`}
           </button>
         ))}
-        <button
-          className="eco-chip"
-          onClick={() => setLocalRefresh(n => n + 1)}
-          aria-label="Recargar"
-          style={{ marginLeft: 'auto' }}
-        >
+        <button className="eco-chip" onClick={() => setLocalRefresh(n => n + 1)} aria-label="Recargar" style={{ marginLeft: 'auto' }}>
           <FlutterIcon name="refresh" size={16} />
           Recargar
         </button>
       </div>
 
       <div className="eco-reports-list">
-        {/* Loading state */}
         {loading && (
           <div className="eco-empty" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
             <span className="eco-spinner" />
@@ -144,7 +159,6 @@ export default function ReportsScreen({ refreshKey }: Props) {
           </div>
         )}
 
-        {/* Error state */}
         {!loading && error && (
           <div className="eco-empty" style={{ color: 'var(--m3-error)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
             <FlutterIcon name="error" size={20} fill={1} color="var(--m3-error)" />
@@ -152,7 +166,6 @@ export default function ReportsScreen({ refreshKey }: Props) {
           </div>
         )}
 
-        {/* Empty state */}
         {!loading && !error && visible.length === 0 && (
           <div className="eco-empty" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
             <FlutterIcon name="inbox" size={48} color="var(--m3-on-surface-variant)" weight={300} />
@@ -161,44 +174,43 @@ export default function ReportsScreen({ refreshKey }: Props) {
           </div>
         )}
 
-        {/* Report items */}
-        {!loading && !error && visible.map(r => (
+        {!loading && !error && visible.map(r => {
+          const cachedPhoto = photoCache[r.id];
+          const showPhoto = r.hasPhoto || r.photoUrl;
+          return (
           <div key={r.id} className="eco-report-item">
-            {/* Photo or icon placeholder */}
-            {r.photoUrl ? (
+            {showPhoto ? (
               <div
                 style={{ position: 'relative', flexShrink: 0, cursor: 'pointer' }}
-                onClick={() => setLightbox(`/api${r.photoUrl!}`)}
+                onClick={() => openLightbox(r.id)}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setLightbox(`/api${r.photoUrl!}`); }}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') openLightbox(r.id); }}
                 aria-label="Ver foto ampliada"
               >
-                <img
-                  src={`/api${r.photoUrl}`}
-                  alt={categoryLabels[r.category] || r.category}
-                  loading="lazy"
-                  onError={(e) => { const img = e.currentTarget as HTMLImageElement; img.src = '/icon_128x128.png'; img.style.objectFit = 'contain'; img.style.padding = '16px'; }}
-                  style={{
-                    width: 88,
-                    height: 88,
-                    borderRadius: 12,
-                    objectFit: 'cover',
-                    display: 'block',
-                  }}
-                />
-                {/* zoom_in icon overlay */}
+                {cachedPhoto ? (
+                  <img
+                    src={getImgSrc(cachedPhoto)}
+                    alt={categoryLabels[r.category] || r.category}
+                    loading="lazy"
+                    style={{ width: 88, height: 88, borderRadius: 12, objectFit: 'cover', display: 'block' }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: 88, height: 88, borderRadius: 12,
+                      background: 'var(--m3-surface-container, #f0f0f0)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}
+                  >
+                    <FlutterIcon name="image" size={28} color="var(--m3-on-surface-variant)" />
+                  </div>
+                )}
                 <div
                   style={{
-                    position: 'absolute',
-                    inset: 0,
-                    borderRadius: 12,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'rgba(0,0,0,0.3)',
-                    opacity: 0,
-                    transition: 'opacity 0.2s',
+                    position: 'absolute', inset: 0, borderRadius: 12,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: 'rgba(0,0,0,0.3)', opacity: 0, transition: 'opacity 0.2s',
                   }}
                   className="eco-img-overlay"
                 >
@@ -206,31 +218,19 @@ export default function ReportsScreen({ refreshKey }: Props) {
                 </div>
               </div>
             ) : (
-              <div
-                style={{
-                  width: 64,
-                  height: 64,
-                  borderRadius: 8,
-                  background: 'var(--m3-secondary-container)',
-                  color: 'var(--m3-on-secondary-container)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                }}
-              >
+              <div style={{
+                width: 64, height: 64, borderRadius: 8,
+                background: 'var(--m3-secondary-container)', color: 'var(--m3-on-secondary-container)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+              }}>
                 <FlutterIcon name={catIcon(r.category)} size={28} fill={1} />
               </div>
             )}
 
-            {/* Report body */}
             <div className="eco-report-body">
               <div className="eco-report-meta">
                 <span className="eco-report-cat">{categoryLabels[r.category] || r.category}</span>
-                <span
-                  className="eco-report-status"
-                  style={{ background: statusColors[r.status] || '#666' }}
-                >
+                <span className="eco-report-status" style={{ background: statusColors[r.status] || '#666' }}>
                   {statusLabels[r.status] || r.status}
                 </span>
               </div>
@@ -255,63 +255,39 @@ export default function ReportsScreen({ refreshKey }: Props) {
               </div>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* Lightbox overlay */}
       {lightbox && (
         <div
           style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 9999,
+            position: 'fixed', inset: 0, zIndex: 9999,
             background: 'rgba(0,0,0,0.85)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}
           onClick={() => setLightbox(null)}
           role="dialog"
           aria-label="Imagen ampliada"
         >
-          {/* Close button top-right */}
           <button
             onClick={() => setLightbox(null)}
             aria-label="Cerrar"
             style={{
-              position: 'absolute',
-              top: 16,
-              right: 16,
-              background: 'rgba(255,255,255,0.15)',
-              border: 'none',
-              borderRadius: '50%',
-              width: 44,
-              height: 44,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              zIndex: 10000,
-              transition: 'background 0.2s',
+              position: 'absolute', top: 16, right: 16,
+              background: 'rgba(255,255,255,0.15)', border: 'none', borderRadius: '50%',
+              width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer', zIndex: 10000, transition: 'background 0.2s',
             }}
             onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.3)'; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.15)'; }}
           >
             <FlutterIcon name="close" size={28} color="#fff" />
           </button>
-
-          {/* Centered image */}
           <img
-            src={lightbox}
-            alt="Foto ampliada"
+            src={lightbox} alt="Foto ampliada"
             onClick={(e) => e.stopPropagation()}
-            style={{
-              maxWidth: '90vw',
-              maxHeight: '85vh',
-              objectFit: 'contain',
-              borderRadius: 8,
-              boxShadow: '0 4px 32px rgba(0,0,0,0.5)',
-            }}
+            style={{ maxWidth: '90vw', maxHeight: '85vh', objectFit: 'contain', borderRadius: 8, boxShadow: '0 4px 32px rgba(0,0,0,0.5)' }}
           />
         </div>
       )}

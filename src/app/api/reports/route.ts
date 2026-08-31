@@ -4,7 +4,6 @@ import { db } from '@/lib/db';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-// GET /api/reports — list reports, optionally filtered by ?status= or ?category=
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -21,7 +20,12 @@ export async function GET(req: NextRequest) {
       take: limit,
     });
 
-    return NextResponse.json({ ok: true, data: reports });
+    const safe = reports.map(({ photoUrl: _, ...rest }) => ({
+      ...rest,
+      hasPhoto: !!_,
+    }));
+
+    return NextResponse.json({ ok: true, data: safe });
   } catch (err) {
     console.error('[GET /api/reports]', err);
     return NextResponse.json(
@@ -31,7 +35,6 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// POST /api/reports — create a new report
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({} as any));
@@ -43,44 +46,24 @@ export async function POST(req: NextRequest) {
     const directedTo = String(body?.directedTo || '').trim() || null;
 
     if (!category) {
-      return NextResponse.json(
-        { ok: false, error: 'La categoría es obligatoria' },
-        { status: 400 }
-      );
+      return NextResponse.json({ ok: false, error: 'La categoría es obligatoria' }, { status: 400 });
     }
     if (!description) {
-      return NextResponse.json(
-        { ok: false, error: 'La descripción es obligatoria' },
-        { status: 400 }
-      );
+      return NextResponse.json({ ok: false, error: 'La descripción es obligatoria' }, { status: 400 });
     }
 
     const validCategories = ['basura', 'incendio', 'tala', 'contaminacion', 'otro'];
     if (!validCategories.includes(category)) {
-      return NextResponse.json(
-        { ok: false, error: 'Categoría no válida' },
-        { status: 400 }
-      );
+      return NextResponse.json({ ok: false, error: 'Categoría no válida' }, { status: 400 });
     }
 
     const report = await db.report.create({
-      data: {
-        category,
-        description,
-        location,
-        photoUrl,
-        reporter,
-        directedTo,
-        status: 'pending',
-      },
+      data: { category, description, location, photoUrl, reporter, directedTo, status: 'pending' },
     });
 
     return NextResponse.json({ ok: true, data: report }, { status: 201 });
   } catch (err) {
     console.error('[POST /api/reports]', err);
-    return NextResponse.json(
-      { ok: false, error: 'No se pudo crear el reporte' },
-      { status: 500 }
-    );
+    return NextResponse.json({ ok: false, error: 'No se pudo crear el reporte' }, { status: 500 });
   }
 }

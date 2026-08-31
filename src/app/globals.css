@@ -2529,3 +2529,9 @@ body {
   color: #95d4a3;
 }
 
+/* Hide Next.js dev watermark (black N icon) */
+a[href*="nextjs.org"],
+a[href*="vercel.com"] {
+  display: none !important;
+}
+
