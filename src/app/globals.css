@@ -1,0 +1,2531 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ===================================================================
+   ecoOmetepe — Material 3 Expressive (Android 17) design system
+   Color / Shape / Elevation / Typography tokens, Flutter-style icons.
+   =================================================================== */
+
+/* Material Symbols Rounded base */
+.material-symbols-rounded {
+  font-family: 'Material Symbols Rounded', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'liga';
+}
+
+/* ---- Material 3 Expressive Color tokens (light) ----
+   Seed: green (eco). Tonal palettes generated per M3 spec.
+   Material You dynamic color is approximated with a fixed seed. */
+:root {
+  /* Brand */
+  --eco-green: #2f8f4a;
+  --eco-accent: #1e9ad6;
+  --eco-earth: #cda77a;
+
+  /* M3 Tonal palettes */
+  --m3-primary: #2f8f4a;
+  --m3-on-primary: #ffffff;
+  --m3-primary-container: #b2f1bf;
+  --m3-on-primary-container: #00210f;
+
+  --m3-secondary: #4e6354;
+  --m3-on-secondary: #ffffff;
+  --m3-secondary-container: #d0e8d4;
+  --m3-on-secondary-container: #0b1f14;
+
+  --m3-tertiary: #1e9ad6;
+  --m3-on-tertiary: #ffffff;
+  --m3-tertiary-container: #c4e8ff;
+  --m3-on-tertiary-container: #001e2f;
+
+  --m3-error: #ba1a1a;
+  --m3-on-error: #ffffff;
+  --m3-error-container: #ffdad6;
+  --m3-on-error-container: #410002;
+
+  /* Surfaces with tonal elevation tints */
+  --m3-background: #f5fbf3;
+  --m3-on-background: #161d18;
+  --m3-surface: #f5fbf3;
+  --m3-on-surface: #161d18;
+  --m3-surface-dim: #d5dbd4;
+  --m3-surface-bright: #f5fbf3;
+  --m3-surface-container-lowest: #ffffff;
+  --m3-surface-container-low: #eff5ec;
+  --m3-surface-container: #e9efe6;
+  --m3-surface-container-high: #e3e9e0;
+  --m3-surface-container-highest: #dde4da;
+  --m3-on-surface-variant: #3f4940;
+  --m3-outline: #6f7a6c;
+  --m3-outline-variant: #bfc9ba;
+
+  --m3-inverse-surface: #2b322d;
+  --m3-inverse-on-surface: #ecf2e9;
+  --m3-inverse-primary: #95d4a3;
+
+  --m3-scrim: #000000;
+
+  /* Legacy aliases (compat with existing components) */
+  --eco-bg: var(--m3-background);
+  --eco-card: var(--m3-surface-container-low);
+  --eco-text: var(--m3-on-surface);
+  --eco-muted: var(--m3-on-surface-variant);
+  --eco-radius: 16px;
+  --eco-glass: rgba(255, 255, 255, 0.6);
+  --eco-glass-2: rgba(255, 255, 255, 0.85);
+  --eco-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 2px 6px rgba(0,0,0,0.04);
+  --eco-input-bg: var(--m3-surface-container-high);
+  --eco-input-border: var(--m3-outline-variant);
+
+  /* M3 Shape scale */
+  --m3-shape-xs: 4px;
+  --m3-shape-sm: 8px;
+  --m3-shape-md: 12px;
+  --m3-shape-lg: 16px;
+  --m3-shape-xl: 28px;
+  --m3-shape-full: 999px;
+
+  /* M3 Motion (emphasized easing, like Flutter) */
+  --m3-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --m3-emphasized-decel: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --m3-standard: cubic-bezier(0.2, 0, 0, 1);
+  --m3-duration-short: 150ms;
+  --m3-duration-medium: 250ms;
+  --m3-duration-long: 400ms;
+
+  /* State layer opacity */
+  --m3-state-hover: 0.08;
+  --m3-state-focus: 0.12;
+  --m3-state-pressed: 0.12;
+}
+
+/* ---- Material 3 Expressive Color tokens (dark) ---- */
+:root[data-theme="dark"] {
+  --eco-green: #95d4a3;
+  --eco-accent: #8aceff;
+  --eco-earth: #8b6b49;
+
+  --m3-primary: #95d4a3;
+  --m3-on-primary: #00391c;
+  --m3-primary-container: #146234;
+  --m3-on-primary-container: #b2f1bf;
+
+  --m3-secondary: #b4ccb8;
+  --m3-on-secondary: #1f3527;
+  --m3-secondary-container: #354b3c;
+  --m3-on-secondary-container: #d0e8d4;
+
+  --m3-tertiary: #8aceff;
+  --m3-on-tertiary: #00344d;
+  --m3-tertiary-container: #004c6e;
+  --m3-on-tertiary-container: #c4e8ff;
+
+  --m3-error: #ffb4ab;
+  --m3-on-error: #690005;
+  --m3-error-container: #93000a;
+  --m3-on-error-container: #ffdad6;
+
+  --m3-background: #0e1510;
+  --m3-on-background: #dde4da;
+  --m3-surface: #0e1510;
+  --m3-on-surface: #dde4da;
+  --m3-surface-dim: #0e1510;
+  --m3-surface-bright: #343b35;
+  --m3-surface-container-lowest: #090f0b;
+  --m3-surface-container-low: #161d18;
+  --m3-surface-container: #1a211c;
+  --m3-surface-container-high: #242c26;
+  --m3-surface-container-highest: #2f362f;
+  --m3-on-surface-variant: #bfc9ba;
+  --m3-outline: #8a9386;
+  --m3-outline-variant: #3f4940;
+
+  --m3-inverse-surface: #dde4da;
+  --m3-inverse-on-surface: #2b322d;
+  --m3-inverse-primary: #2f8f4a;
+
+  --eco-bg: var(--m3-background);
+  --eco-card: var(--m3-surface-container);
+  --eco-text: var(--m3-on-surface);
+  --eco-muted: var(--m3-on-surface-variant);
+  --eco-glass: rgba(255, 255, 255, 0.04);
+  --eco-glass-2: rgba(255, 255, 255, 0.03);
+  --eco-shadow: 0 1px 2px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.45);
+  --eco-input-bg: var(--m3-surface-container-high);
+  --eco-input-border: var(--m3-outline-variant);
+}
+
+/* ===================================================================
+   M3 Expressive components
+   =================================================================== */
+
+/* ---- Scaffold (fully responsive — adapts to ANY screen) ----
+   Mobile  (< 768px):   full screen, bottom nav, single column.
+   Tablet  (≥ 768px):   NavigationRail on the left + content area with 2-3 cols.
+   Desktop (≥ 1024px):  wider rail + 3-4 column content grids.
+   Wide    (≥ 1440px):  content max-width centered, comfortable reading.
+*/
+/* App-like base: no body scroll, lock to viewport, safe-area aware */
+html, body {
+  height: 100%;
+  overscroll-behavior: none;
+}
+body {
+  margin: 0;
+  background: var(--m3-background);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+.eco-device {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 100%;
+  margin: 0;
+  background: var(--m3-background);
+  color: var(--m3-on-surface);
+  font-family: var(--font-roboto-flex), 'Roboto', system-ui, sans-serif;
+  position: relative;
+  overflow: hidden;
+  /* Respect notches / Dynamic Island on real phones */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  box-sizing: border-box;
+}
+
+/* Decorative tonal gradient header backdrop (mobile only — desktop uses the rail chrome) */
+.eco-device::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 280px;
+  background:
+    radial-gradient(ellipse 600px 200px at 30% 0%, color-mix(in srgb, var(--m3-primary) 22%, transparent), transparent 70%),
+    radial-gradient(ellipse 400px 180px at 80% 10%, color-mix(in srgb, var(--m3-tertiary) 18%, transparent), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =====================================================================
+   Responsive layout — tablet & desktop (≥ 768px)
+   The NavigationRail appears on the left; content fills the rest.
+   No phone silhouette — the app expands to use the full viewport.
+   ===================================================================== */
+@media (min-width: 768px) {
+  html, body {
+    background: var(--m3-background);
+    min-height: 100vh;
+    height: 100%;
+  }
+  body {
+    display: block;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  /* The device becomes a grid: rail spans both rows on the left,
+     header + main stack on the right. */
+  .eco-device {
+    display: grid !important;
+    flex-direction: row !important;
+    grid-template-columns: 280px 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "rail header"
+      "rail main";
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    max-width: none;
+    padding: 0;
+    overflow: hidden;
+    align-items: stretch !important;
+  }
+
+  /* Gradient backdrop only behind the content track, not the rail */
+  .eco-device::before {
+    grid-area: header / header / main / main;
+    height: auto;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 800px 320px at 25% -10%, color-mix(in srgb, var(--m3-primary) 18%, transparent), transparent 70%),
+      radial-gradient(ellipse 600px 260px at 90% 0%, color-mix(in srgb, var(--m3-tertiary) 14%, transparent), transparent 70%);
+  }
+
+  /* ----- NavigationRail (left track) ----- */
+  .eco-nav-rail {
+    display: flex !important;
+    position: relative !important;
+    top: auto !important;
+    grid-area: rail;
+    border-right: 1px solid var(--m3-outline-variant);
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+
+  /* ----- Header (top-right track) ----- */
+  .eco-header {
+    grid-area: header;
+    padding: 14px 24px !important;
+    border-bottom: 1px solid color-mix(in srgb, var(--m3-outline-variant) 70%, transparent);
+    background: color-mix(in srgb, var(--m3-surface) 88%, transparent);
+    backdrop-filter: blur(20px) saturate(1.5);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    position: relative !important;
+    z-index: 4 !important;
+    flex-shrink: 0;
+  }
+
+  .eco-main {
+    grid-area: main;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 24px 24px 40px !important;
+    flex: 1 !important;
+    max-width: none !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    position: relative !important;
+    z-index: 1 !important;
+    min-height: 0;
+  }
+  .eco-screen { padding-bottom: 32px; }
+
+  /* Hide the mobile bottom nav on desktop — the rail already provides navigation */
+  .eco-bottom-nav { display: none !important; }
+
+  /* Hide the mobile title block on desktop — the rail already shows the brand.
+     React serializes inline styles without the space after the colon, so we
+     match both forms to be safe. */
+  .eco-header > div[style*="flex-direction:column"],
+  .eco-header > div[style*="flex-direction: column"] {
+    display: none !important;
+  }
+
+  /* Header becomes a clean toolbar:
+     [search btn]  ........  [search bar when open]  ........  [theme btn] [profile btn]
+     Use space-between so the search button sits left and the action buttons right. */
+  .eco-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+  }
+  .eco-header-left { flex: 0 0 auto !important; }
+  .eco-header-right { flex: 0 0 auto !important; gap: 8px !important; }
+
+  /* Inline search bar in the header instead of floating.
+     When closed, the left button stays left and the right group stays right. */
+  .eco-header .eco-search-wrap {
+    position: relative;
+    left: auto; right: auto; top: auto;
+    flex: 1 1 auto;
+    max-width: 560px;
+    margin: 0;
+    display: none;
+  }
+  .eco-header .eco-search-wrap.open { display: flex; }
+  /* Keep search + theme buttons visible on desktop */
+  .eco-header-right .eco-icon-btn[aria-label="Cambiar tema"] { display: inline-flex; }
+  .eco-header-left .eco-icon-btn[aria-label="Buscar"] { display: inline-flex; }
+
+  /* FAB floats at fixed bottom-right of the viewport */
+  .eco-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 28px;
+    z-index: 25;
+  }
+
+  /* Modal becomes a centered floating dialog (not constrained to a phone) */
+  .eco-modal {
+    position: fixed !important;
+    inset: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 24px !important;
+  }
+  .eco-modal-sheet {
+    max-width: 640px !important;
+    width: 100%;
+    max-height: 88vh;
+    border-radius: var(--m3-shape-xl) !important;
+  }
+  .eco-modal-sheet::before { display: block !important; }
+
+  /* Status bar hidden on desktop (no phone chrome needed) */
+  .eco-status-bar { display: none !important; }
+
+  /* ----- Responsive content grids ----- */
+  .eco-cards { grid-template-columns: repeat(3, 1fr) !important; gap: 16px; }
+  .eco-tip-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 16px; }
+  .eco-reports-list {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px;
+  }
+  .eco-home-grid { display: block !important; }
+
+  /* Larger carousel on wider screens — slides snap to grid so they align
+     with the content padding. 3 slides visible keeps things tidy. */
+  .eco-carousel-wrap {
+    height: auto !important;
+    padding: 8px 0 0 !important;
+  }
+  .eco-carousel {
+    padding: 4px 4px 8px !important;
+    gap: 16px !important;
+    scroll-padding-left: 4px;
+  }
+  .eco-slide {
+    flex: 0 0 calc((100% - 32px) / 3) !important;
+    height: 240px !important;
+  }
+  .eco-slide img { height: 240px !important; }
+  .eco-carousel-indicators { padding-top: 14px !important; }
+
+  /* Hero action button: left-aligned with the content, not centered.
+     Its width matches the natural content rhythm. */
+  .eco-hero-actions {
+    margin: 4px 0 0 !important;
+    justify-content: flex-start !important;
+  }
+  .eco-hero-actions .eco-action-btn {
+    flex: 0 0 auto !important;
+    max-width: 280px !important;
+  }
+  /* Remove the spacers around the action button */
+  .eco-hero-actions > div[style*="flex: 1"] { display: none !important; }
+
+  /* Info card: full width of the content track — aligned with the carousel.
+     Removed the narrow max-width so it sits flush with the rest. */
+  .eco-info-card {
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* ===== Desktop (≥ 1024px): wider grids, more breathing room ===== */
+@media (min-width: 1024px) {
+  .eco-device {
+    grid-template-columns: 300px 1fr;
+  }
+  .eco-cards { grid-template-columns: repeat(4, 1fr) !important; }
+  .eco-tip-grid { grid-template-columns: repeat(4, 1fr) !important; }
+  .eco-reports-list { grid-template-columns: repeat(2, 1fr) !important; }
+  .eco-main { padding: 28px 32px 48px !important; }
+  .eco-header { padding: 16px 32px !important; }
+  /* 4 slides visible on wider desktops — keeps alignment with the 4-col card grid */
+  .eco-slide {
+    flex: 0 0 calc((100% - 48px) / 4) !important;
+  }
+}
+
+/* ===== Wide desktop (≥ 1440px): more breathing room, no max-width cap
+   (we want content to fill the available track consistently) ===== */
+@media (min-width: 1440px) {
+  .eco-device {
+    grid-template-columns: 320px 1fr;
+  }
+  .eco-main {
+    padding: 32px 48px 56px !important;
+  }
+}
+
+/* ===== Extra-wide (≥ 1920px): add a comfortable reading cap so
+   lines don't stretch too far. ===== */
+@media (min-width: 1920px) {
+  .eco-device {
+    grid-template-columns: 340px 1fr;
+  }
+  .eco-main {
+    padding: 36px 64px 64px !important;
+  }
+}
+
+/* ===================================================================
+   NavigationRail — M3 (desktop / tablet landscape)
+   =================================================================== */
+.eco-nav-rail {
+  display: none;
+  grid-area: rail;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 16px 12px;
+  background: var(--m3-surface-container-low);
+  border-right: 1px solid var(--m3-outline-variant);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 10;
+}
+.eco-nav-rail-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px 24px;
+  border-bottom: 1px solid var(--m3-outline-variant);
+  margin-bottom: 16px;
+}
+.eco-nav-rail-brand img {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--m3-shape-md);
+  object-fit: cover;
+}
+.eco-nav-rail-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.eco-nav-rail-brand-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--m3-on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+/* Small Nicaragua flag used as a logo right after the app name */
+.eco-flag-mini {
+  width: 22px;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  border-radius: 3px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+  object-fit: cover;
+  vertical-align: middle;
+}
+/* In the desktop rail the flag can be slightly larger */
+.eco-nav-rail-brand-title .eco-flag-mini {
+  width: 20px;
+}
+/* In the mobile header the flag sits next to a slightly bigger title */
+.eco-title .eco-flag-mini {
+  width: 18px;
+}
+@media (max-width: 380px) {
+  .eco-title .eco-flag-mini {
+    width: 15px;
+  }
+  .eco-nav-rail-brand-title .eco-flag-mini {
+    width: 17px;
+  }
+}
+.eco-nav-rail-brand-sub {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--m3-on-surface-variant);
+}
+.eco-nav-rail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+.eco-nav-rail-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px 0 12px;
+  height: 56px;
+  border: none;
+  background: transparent;
+  border-radius: var(--m3-shape-lg);
+  cursor: pointer;
+  color: var(--m3-on-surface-variant);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  position: relative;
+  overflow: hidden;
+  transition: background var(--m3-duration-short) var(--m3-emphasized),
+              color var(--m3-duration-short) var(--m3-emphasized);
+  text-align: left;
+  width: 100%;
+}
+.eco-nav-rail-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--m3-duration-short) var(--m3-emphasized);
+  pointer-events: none;
+}
+.eco-nav-rail-item:hover::before { opacity: var(--m3-state-hover); }
+.eco-nav-rail-item:focus-visible::before { opacity: var(--m3-state-focus); }
+.eco-nav-rail-item:active::before { opacity: var(--m3-state-pressed); }
+.eco-nav-rail-item:focus-visible {
+  outline: 2px solid var(--m3-primary);
+  outline-offset: -2px;
+}
+.eco-nav-rail-item .eco-rail-icon {
+  width: 48px;
+  height: 32px;
+  border-radius: var(--m3-shape-lg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--m3-duration-medium) var(--m3-emphasized),
+              color var(--m3-duration-medium) var(--m3-emphasized);
+}
+.eco-nav-rail-item .eco-rail-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.eco-nav-rail-item.active {
+  color: var(--m3-on-surface);
+  font-weight: 600;
+}
+.eco-nav-rail-item.active .eco-rail-icon {
+  background: var(--m3-secondary-container);
+  color: var(--m3-on-secondary-container);
+}
+.eco-nav-rail-item:hover { color: var(--m3-on-surface); }
+
+/* Rail footer — theme toggle + profile */
+.eco-nav-rail-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--m3-outline-variant);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.eco-nav-rail-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: var(--m3-shape-lg);
+  cursor: pointer;
+  transition: background var(--m3-duration-short) var(--m3-emphasized);
+  position: relative;
+  overflow: hidden;
+}
+.eco-nav-rail-profile:hover {
+  background: color-mix(in srgb, var(--m3-on-surface) 8%, transparent);
+}
+.eco-nav-rail-profile-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--m3-primary-container);
+  color: var(--m3-on-primary-container);
+  font-weight: 700;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.eco-nav-rail-profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+.eco-nav-rail-profile-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--m3-on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.eco-nav-rail-profile-sub {
+  font-size: 12px;
+  color: var(--m3-on-surface-variant);
+}
+.eco-nav-rail-theme-row {
+  display: flex;
+  gap: 4px;
+  padding: 0 4px;
+}
+.eco-nav-rail-theme-btn {
+  flex: 1;
+  height: 44px;
+  border: none;
+  background: transparent;
+  color: var(--m3-on-surface-variant);
+  border-radius: var(--m3-shape-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background var(--m3-duration-short) var(--m3-emphasized),
+              color var(--m3-duration-short) var(--m3-emphasized);
+  font-family: inherit;
+}
+.eco-nav-rail-theme-btn:hover {
+  background: color-mix(in srgb, var(--m3-on-surface) 8%, transparent);
+  color: var(--m3-on-surface);
+}
+.eco-nav-rail-theme-btn.active {
+  background: var(--m3-secondary-container);
+  color: var(--m3-on-secondary-container);
+}
+
+/* Profile menu position adjustment on desktop (no iPhone frame anymore) */
+@media (min-width: 768px) {
+  .eco-profile-menu {
+    top: 64px;
+    bottom: auto;
+    left: auto;
+    right: 24px;
+    width: 260px;
+  }
+  /* Header buttons stay visible on desktop */
+  .eco-header-right .eco-icon-btn[aria-label="Cambiar tema"] {
+    display: inline-flex;
+  }
+  .eco-header-left .eco-icon-btn[aria-label="Buscar"] {
+    display: inline-flex;
+  }
+}
+
+/* ---- Simulated iOS Status Bar (native app feel) ----
+   Shows real time + signal/wifi/battery icons above the header on real phones.
+   Hidden on tablet/desktop (the app shell has its own header chrome there). */
+.eco-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 24px 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--m3-on-surface);
+  letter-spacing: 0.2px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 3;
+  height: 30px;
+}
+.eco-status-time {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+.eco-status-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--m3-on-surface);
+}
+.eco-status-battery {
+  width: 24px;
+  height: 12px;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  padding: 1.5px;
+  position: relative;
+  opacity: 0.95;
+}
+.eco-status-battery-fill {
+  width: 75%;
+  height: 100%;
+  background: currentColor;
+  border-radius: 1px;
+}
+.eco-status-battery-cap {
+  position: absolute;
+  right: -3px;
+  top: 3.5px;
+  width: 2px;
+  height: 5px;
+  background: currentColor;
+  border-radius: 0 1px 1px 0;
+  opacity: 0.6;
+}
+/* Hide status bar on desktop (no phone chrome needed) */
+@media (min-width: 768px) {
+  .eco-status-bar { display: none; }
+}
+
+/* ---- Top App Bar (M3 Center-aligned) ---- */
+.eco-header {
+  padding: 6px 8px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  z-index: 2;
+  transition: background var(--m3-duration-medium) var(--m3-emphasized);
+  flex-shrink: 0;
+}
+.eco-header-left,
+.eco-header-right { display: flex; align-items: center; gap: 4px; }
+
+/* Icon button — M3 standard, 40x40 with state layer */
+.eco-icon-btn {
+  background: transparent;
+  border: none;
+  border-radius: var(--m3-shape-full);
+  padding: 8px;
+  min-width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  color: var(--m3-on-surface-variant);
+  transition: background var(--m3-duration-short) var(--m3-emphasized),
+              color var(--m3-duration-short) var(--m3-emphasized);
+}
+.eco-icon-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--m3-duration-short) var(--m3-emphasized);
+  pointer-events: none;
+}
+.eco-icon-btn:hover::before { opacity: var(--m3-state-hover); }
+.eco-icon-btn:focus-visible::before { opacity: var(--m3-state-focus); }
+.eco-icon-btn:active::before { opacity: var(--m3-state-pressed); }
+.eco-icon-btn:focus-visible { outline: 2px solid var(--m3-primary); outline-offset: 2px; }
+
+/* Filled tonal variant (for theme toggle when active) */
+.eco-icon-btn.filled {
+  background: var(--m3-primary-container);
+  color: var(--m3-on-primary-container);
+}
+.eco-icon-btn.filled::before { background: var(--m3-on-primary-container); }
+
+/* Search bar — M3 style (hidden by default, shown via .open or on desktop) */
+.eco-search-wrap {
+  display: none;
+  position: absolute;
+  left: 8px; right: 8px; top: 60px;
+  background: var(--m3-surface-container-high);
+  border-radius: var(--m3-shape-full);
+  padding: 4px 4px 4px 16px;
+  gap: 8px;
+  align-items: center;
+  box-shadow: var(--eco-shadow);
+  z-index: 30;
+  transform-origin: top center;
+  animation: m3SearchIn var(--m3-duration-medium) var(--m3-emphasized-decel);
+}
+.eco-search-wrap.open { display: flex; }
+@keyframes m3SearchIn {
+  from { transform: scale(0.95) translateY(-8px); opacity: 0; }
+  to   { transform: scale(1) translateY(0); opacity: 1; }
+}
+.eco-search-wrap input[type="search"] {
+  flex: 1;
+  padding: 12px 4px;
+  border: none;
+  background: transparent;
+  color: var(--m3-on-surface);
+  font-size: 16px; /* ≥16 to prevent iOS zoom */
+  font-family: inherit;
+  outline: none;
+}
+.eco-search-wrap input[type="search"]::placeholder { color: var(--m3-on-surface-variant); }
+
+/* App title — M3 Title Large */
+.eco-title {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--m3-on-surface);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: var(--font-roboto-flex), 'Roboto', system-ui, sans-serif;
+}
+.eco-leaf { transform: translateY(-1px); color: var(--m3-primary); }
+
+.eco-subtitle {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: var(--m3-on-surface-variant);
+  text-transform: uppercase;
+}
+
+/* ---- Main scaffold body ---- */
+.eco-main {
+  flex: 1;
+  overflow: auto;
+  padding: 8px 12px 12px;
+  position: relative;
+  z-index: 1;
+}
+.eco-screen { display: none; padding-bottom: 110px; }
+.eco-screen.active {
+  display: block;
+  animation: m3ScreenIn var(--m3-duration-long) var(--m3-emphasized-decel);
+}
+@keyframes m3ScreenIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.eco-hero { display: flex; flex-direction: column; gap: 20px; }
+
+/* ---- Carousel — M3 Expressive larger shapes ---- */
+.eco-carousel-wrap {
+  height: 240px;
+  min-height: 200px;
+  background: transparent;
+  border-radius: var(--m3-shape-xl);
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: box-shadow var(--m3-duration-medium) var(--m3-emphasized);
+}
+.eco-carousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.eco-carousel::-webkit-scrollbar { display: none; }
+.eco-slide {
+  flex: 0 0 78%;
+  height: 220px;
+  border-radius: var(--m3-shape-xl);
+  background: var(--m3-surface-container-high);
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: center;
+  transition: transform var(--m3-duration-medium) var(--m3-emphasized),
+              box-shadow var(--m3-duration-medium) var(--m3-emphasized);
+  box-shadow:
+    0 4px 14px -4px rgba(0, 0, 0, 0.18),
+    0 1px 3px -1px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+.eco-slide img { width: 100%; height: 220px; object-fit: cover; display: block; transition: transform var(--m3-duration-long) var(--m3-emphasized); }
+.eco-slide:hover { transform: translateY(-4px); box-shadow: 0 8px 24px -4px rgba(0,0,0,0.22), 0 2px 6px -2px rgba(0,0,0,0.16); }
+.eco-slide:hover img { transform: scale(1.04); }
+.eco-slide .eco-caption {
+  position: absolute;
+  left: 0; bottom: 0; right: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.78) 100%);
+  color: #fff;
+  padding: 28px 14px 12px;
+  border-radius: 0 0 var(--m3-shape-xl) var(--m3-shape-xl);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.15px;
+}
+.eco-carousel-indicators { display: flex; gap: 6px; justify-content: center; padding-top: 12px; }
+.eco-ind-dot {
+  width: 8px; height: 8px; border-radius: var(--m3-shape-full);
+  background: color-mix(in srgb, var(--m3-on-surface-variant) 40%, transparent);
+  transition: all var(--m3-duration-short) var(--m3-emphasized);
+  cursor: pointer;
+  border: none;
+}
+.eco-ind-dot.active {
+  background: var(--m3-primary);
+  width: 24px;
+}
+
+/* ---- Hero action button (Filled Button, M3) ---- */
+.eco-hero-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 4px;
+}
+.eco-action-btn {
+  flex: 1;
+  max-width: 320px;
+  background: var(--m3-primary);
+  color: var(--m3-on-primary);
+  border: none;
+  border-radius: var(--m3-shape-full);
+  padding: 12px 22px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  transition: box-shadow var(--m3-duration-short) var(--m3-emphasized),
+              transform var(--m3-duration-short) var(--m3-emphasized);
+  box-shadow:
+    0 4px 12px -2px color-mix(in srgb, var(--m3-primary) 45%, transparent),
+    0 1px 3px -1px rgba(0, 0, 0, 0.12);
+}
+.eco-action-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--m3-duration-short) var(--m3-emphasized);
+  pointer-events: none;
+}
+.eco-action-btn:hover::before { opacity: var(--m3-state-hover); }
+.eco-action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 6px 18px -2px color-mix(in srgb, var(--m3-primary) 55%, transparent),
+    0 2px 6px -1px rgba(0, 0, 0, 0.16);
+}
+.eco-action-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+.eco-action-btn:focus-visible::before { opacity: var(--m3-state-focus); }
+.eco-action-btn:active::before { opacity: var(--m3-state-pressed); }
+.eco-action-btn .a-icon {
+  font-size: 22px;
+  display: inline-flex;
+  transition: transform var(--m3-duration-medium) var(--m3-emphasized);
+}
+.eco-action-btn:hover .a-icon { transform: scale(1.1); }
+.eco-a-label {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  color: var(--m3-on-secondary-container);
+}
+
+/* ---- Cards grid (Place cards) — M3 Elevated Card ---- */
+.eco-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+.eco-card {
+  background: var(--m3-surface-container-low);
+  border-radius: var(--m3-shape-md);
+  padding: 10px;
+  cursor: pointer;
+  transition: transform var(--m3-duration-medium) var(--m3-emphasized),
+              box-shadow var(--m3-duration-medium) var(--m3-emphasized),
+              background var(--m3-duration-medium) var(--m3-emphasized);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--m3-outline-variant);
+}
+.eco-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  background: var(--m3-surface-container);
+}
+.eco-card:active { transform: translateY(0); }
+.eco-card img {
+  width: 100%; height: 110px;
+  object-fit: cover;
+  border-radius: var(--m3-shape-sm);
+  transition: transform var(--m3-duration-long) var(--m3-emphasized);
+  background: var(--m3-surface-container-high);
+}
+.eco-card:hover img { transform: scale(1.04); }
+.eco-card h4 { margin: 0; font-size: 15px; color: var(--m3-on-surface); line-height: 1.25; font-weight: 500; }
+.eco-card p { margin: 0; font-size: 12px; color: var(--m3-on-surface-variant); line-height: 1.35; }
+.eco-card .eco-pin-tag {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--m3-surface);
+}
+
+/* ---- Map ---- */
+.eco-map-sim { background: transparent; border-radius: var(--m3-shape-lg); padding: 8px 0; margin-bottom: 8px; }
+.eco-map-iframe-wrap {
+  border-radius: var(--m3-shape-lg);
+  overflow: hidden;
+  box-shadow: var(--eco-shadow);
+  position: relative;
+  border: 1px solid var(--m3-outline-variant);
+}
+.eco-map-legend {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--m3-on-surface-variant);
+}
+.eco-pin {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.eco-pin-recycling { background: var(--m3-primary); }
+.eco-pin-protected { background: var(--m3-tertiary); }
+.eco-pin-polluted { background: var(--m3-error); }
+.eco-pin-eco { background: var(--m3-secondary); }
+
+/* ---- Info card — M3 Outlined Card ---- */
+.eco-info-card {
+  background: var(--m3-surface-container-low);
+  padding: 22px 20px;
+  border-radius: var(--m3-shape-xl);
+  border: 1px solid color-mix(in srgb, var(--m3-outline-variant) 70%, transparent);
+  line-height: 1.55;
+  color: var(--m3-on-surface);
+  transition: background var(--m3-duration-medium) var(--m3-emphasized);
+}
+.eco-info-card:hover { background: var(--m3-surface-container); }
+.eco-info-card h3 { margin: 0 0 10px; font-size: 19px; font-weight: 600; color: var(--m3-on-surface); letter-spacing: -0.1px; }
+.eco-info-card h4 { margin: 18px 0 8px; font-size: 15px; font-weight: 600; color: var(--m3-primary); }
+.eco-info-card p { margin: 8px 0; font-size: 14px; color: var(--m3-on-surface); line-height: 1.6; }
+.eco-info-card ul { margin: 10px 0 14px; padding-left: 22px; }
+.eco-info-card li { margin: 10px 0; font-size: 14px; color: var(--m3-on-surface-variant); line-height: 1.5; }
+.eco-info-card strong { color: var(--m3-primary); font-weight: 600; }
+
+/* ---- Conoce Ometepe — Hero info section ---- */
+.eco-ometepe-hero {
+  position: relative;
+  border-radius: var(--m3-shape-lg, 20px);
+  overflow: hidden;
+  min-height: 180px;
+  max-height: 240px;
+}
+.eco-ometepe-hero-img {
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  max-height: 240px;
+  object-fit: cover;
+  display: block;
+}
+.eco-ometepe-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.45) 55%,
+    rgba(0, 0, 0, 0.08) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 22px 20px;
+}
+.eco-ometepe-hero-overlay h3 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  line-height: 1.2;
+}
+.eco-ometepe-hero-overlay p {
+  margin: 5px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.eco-ometepe-info {
+  background: var(--m3-surface-container-low);
+  padding: 20px;
+  border-radius: var(--m3-shape-xl);
+  border: 1px solid color-mix(in srgb, var(--m3-outline-variant) 70%, transparent);
+  margin-top: 12px;
+  transition: background var(--m3-duration-medium) var(--m3-emphasized);
+}
+.eco-ometepe-info p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--m3-on-surface-variant);
+}
+.eco-ometepe-info p:last-of-type {
+  margin-bottom: 16px;
+}
+.eco-ometepe-info strong {
+  color: var(--m3-primary);
+  font-weight: 600;
+}
+
+/* Stats grid */
+.eco-ometepe-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.eco-ometepe-stat {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--m3-surface-container);
+  padding: 12px;
+  border-radius: var(--m3-shape-md, 14px);
+  transition: background 0.2s ease;
+}
+.eco-ometepe-stat:hover {
+  background: var(--m3-surface-container-high);
+}
+.eco-ometepe-stat-icon {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.eco-ometepe-stat strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--m3-on-surface);
+  line-height: 1.3;
+}
+.eco-ometepe-stat small {
+  display: block;
+  font-size: 11px;
+  color: var(--m3-on-surface-variant);
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+/* Alert callout */
+.eco-ometepe-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: color-mix(in srgb, var(--m3-error) 8%, var(--m3-surface-container));
+  border: 1px solid color-mix(in srgb, var(--m3-error) 20%, transparent);
+  border-radius: var(--m3-shape-md, 14px);
+  padding: 14px 16px;
+}
+.eco-ometepe-alert-icon {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.eco-ometepe-alert strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--m3-error);
+  margin-bottom: 4px;
+}
+.eco-ometepe-alert p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--m3-on-surface-variant);
+}
+
+/* ---- Bottom Navigation Bar — Floating pill (M3 Expressive) ----
+   Floats above the content with rounded corners, soft shadow, blur
+   backdrop and a margin from the bottom edge — iOS / Material You style. */
+.eco-bottom-nav {
+  position: fixed;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 460px;
+  height: 64px;
+  background: color-mix(in srgb, var(--m3-surface-container) 84%, transparent);
+  display: flex;
+  gap: 0;
+  padding: 8px 8px;
+  align-items: stretch;
+  justify-content: space-around;
+  z-index: 30;
+  border: 1px solid color-mix(in srgb, var(--m3-outline-variant) 55%, transparent);
+  border-radius: 28px;
+  backdrop-filter: blur(24px) saturate(1.7);
+  -webkit-backdrop-filter: blur(24px) saturate(1.7);
+  box-shadow:
+    0 10px 30px -8px rgba(0, 0, 0, 0.32),
+    0 2px 8px -2px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.eco-nav-btn {
+  background: transparent;
+  border: none;
+  border-radius: var(--m3-shape-lg);
+  padding: 0;
+  flex: 1;
+  max-width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 12px;
+  color: var(--m3-on-surface-variant);
+  transition: color var(--m3-duration-short) var(--m3-emphasized);
+  position: relative;
+  overflow: visible;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+/* M3 pill indicator behind icon — stronger when active */
+.eco-nav-btn .icon-wrap {
+  position: relative;
+  width: 60px;
+  height: 34px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--m3-duration-medium) var(--m3-emphasized),
+              color var(--m3-duration-medium) var(--m3-emphasized),
+              transform var(--m3-duration-short) var(--m3-emphasized);
+  margin-bottom: 2px;
+}
+.eco-nav-btn .icon {
+  font-size: 22px;
+  transition: font-variation-settings var(--m3-duration-medium) var(--m3-emphasized);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.eco-nav-btn .label {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: color var(--m3-duration-short) var(--m3-emphasized),
+              font-weight var(--m3-duration-short) var(--m3-emphasized);
+}
+.eco-nav-btn:hover .icon-wrap {
+  background: color-mix(in srgb, var(--m3-on-surface) 8%, transparent);
+}
+/* INACTIVE: muted color */
+.eco-nav-btn { color: color-mix(in srgb, var(--m3-on-surface-variant) 88%, transparent); }
+.eco-nav-btn .label { color: color-mix(in srgb, var(--m3-on-surface-variant) 88%, transparent); }
+
+/* ACTIVE: filled pill + primary color + bold label */
+.eco-nav-btn.active {
+  color: var(--m3-primary);
+}
+.eco-nav-btn.active .icon-wrap {
+  background: var(--m3-primary-container);
+  color: var(--m3-on-primary-container);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px -2px color-mix(in srgb, var(--m3-primary) 50%, transparent);
+}
+.eco-nav-btn.active .label {
+  color: var(--m3-primary);
+  font-weight: 700;
+}
+/* State layer — ripple-like press feedback */
+.eco-nav-btn::before {
+  content: '';
+  position: absolute;
+  inset: 6px 4px;
+  border-radius: var(--m3-shape-lg);
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--m3-duration-short) var(--m3-emphasized);
+  pointer-events: none;
+  z-index: -1;
+}
+.eco-nav-btn:active::before { opacity: 0.12; }
+.eco-nav-btn:active .icon-wrap { transform: scale(0.92); }
+.eco-nav-btn.active:active .icon-wrap { transform: translateY(-1px) scale(0.94); }
+
+/* ---- Modals (M3 Modal Bottom Sheet) ---- */
+.eco-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  background: color-mix(in srgb, var(--m3-scrim) 40%, transparent);
+  padding: 0;
+  z-index: 100;
+  animation: m3ScrimIn var(--m3-duration-medium) var(--m3-emphasized);
+}
+@keyframes m3ScrimIn { from { opacity: 0; } to { opacity: 1; } }
+.eco-modal.open { display: flex; }
+.eco-modal-sheet {
+  width: 100%;
+  max-width: 520px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: var(--m3-surface-container-high);
+  border-radius: var(--m3-shape-xl) var(--m3-shape-xl) 0 0;
+  padding: 8px 16px 24px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+  transform-origin: bottom center;
+  animation: m3SheetIn var(--m3-duration-long) var(--m3-emphasized-decel);
+  color: var(--m3-on-surface);
+  position: relative;
+}
+@keyframes m3SheetIn {
+  from { transform: translateY(40px); opacity: 0.4; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+/* Drag handle */
+.eco-modal-sheet::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 4px;
+  background: color-mix(in srgb, var(--m3-on-surface-variant) 40%, transparent);
+  border-radius: var(--m3-shape-full);
+  margin: 8px auto 12px;
+}
+.eco-close {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  position: absolute;
+  right: 12px; top: 16px;
+  cursor: pointer;
+  color: var(--m3-on-surface-variant);
+  z-index: 5;
+  width: 40px; height: 40px;
+  border-radius: var(--m3-shape-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--m3-duration-short) var(--m3-emphasized);
+}
+.eco-close:hover { background: color-mix(in srgb, var(--m3-on-surface) 8%, transparent); }
+.eco-close:active { background: color-mix(in srgb, var(--m3-on-surface) 12%, transparent); }
+
+.eco-detail-image-wrap {
+  border-radius: var(--m3-shape-lg);
+  overflow: hidden;
+  max-height: 46vh;
+  background: var(--m3-surface-container);
+}
+.eco-detail-image-wrap img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--m3-duration-long) var(--m3-emphasized);
+  cursor: zoom-in;
+}
+.eco-detail-image-wrap img:hover { transform: scale(1.02); }
+
+.eco-detail-body { padding: 12px 0; color: var(--m3-on-surface); }
+.eco-detail-body h3 { margin: 0 0 8px; font-size: 22px; font-weight: 500; color: var(--m3-on-surface); letter-spacing: 0; }
+.eco-detail-body p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--m3-on-surface-variant); }
+
+.eco-detail-thumbs {
+  display: flex; gap: 8px; margin-top: 12px;
+  overflow-x: auto; padding-bottom: 6px;
+  scrollbar-width: none;
+}
+.eco-detail-thumbs::-webkit-scrollbar { display: none; }
+.eco-detail-thumb {
+  width: 72px; height: 56px;
+  border-radius: var(--m3-shape-sm);
+  overflow: hidden;
+  flex: 0 0 auto;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform var(--m3-duration-short) var(--m3-emphasized),
+              border-color var(--m3-duration-short) var(--m3-emphasized);
+}
+.eco-detail-thumb:hover { transform: translateY(-2px); }
+.eco-detail-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.eco-detail-thumb.selected {
+  border-color: var(--m3-primary);
+  transform: translateY(-2px);
+}
+
+/* ---- Forms (M3 Text Fields - outlined) ---- */
+.eco-form { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }
+.eco-form label {
+  font-size: 12px;
+  color: var(--m3-on-surface-variant);
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.eco-form select,
+.eco-form input[type="text"],
+.eco-form textarea {
+  padding: 14px 16px;
+  border-radius: var(--m3-shape-xs);
+  border: 1px solid var(--m3-outline);
+  background: transparent;
+  color: var(--m3-on-surface);
+  font-size: 16px;
+  font-family: inherit;
+  width: 100%;
+  transition: border-color var(--m3-duration-short) var(--m3-emphasized),
+              box-shadow var(--m3-duration-short) var(--m3-emphasized);
+}
+.eco-form select:focus,
+.eco-form input[type="text"]:focus,
+.eco-form textarea:focus {
+  outline: none;
+  border-color: var(--m3-primary);
+  border-width: 2px;
+  padding: 13px 15px;
+}
+.eco-form input[type="file"] {
+  padding: 12px 14px;
+  border-radius: var(--m3-shape-xs);
+  border: 1px dashed var(--m3-outline);
+  background: var(--m3-surface-container);
+  color: var(--m3-on-surface-variant);
+  font-size: 13px;
+  width: 100%;
+  font-family: inherit;
+}
+.eco-form textarea { resize: vertical; min-height: 96px; }
+
+.eco-form .eco-row { display: flex; gap: 12px; margin-top: 8px; }
+.eco-form .eco-row .eco-action-btn { flex: 1; }
+
+/* M3 Filled Button */
+.eco-btn-primary {
+  background: var(--m3-primary);
+  color: var(--m3-on-primary) !important;
+  border: none;
+  border-radius: var(--m3-shape-full);
+  padding: 14px 24px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--m3-duration-short) var(--m3-emphasized),
+              transform var(--m3-duration-short) var(--m3-emphasized);
+}
+.eco-btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--m3-duration-short) var(--m3-emphasized);
+  pointer-events: none;
+}
+.eco-btn-primary:hover::before { opacity: var(--m3-state-hover); }
+.eco-btn-primary:active::before { opacity: var(--m3-state-pressed); }
+.eco-btn-primary:hover { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08); }
+.eco-btn-primary:disabled { opacity: 0.38; cursor: not-allowed; }
+
+/* M3 Outlined Button */
+.eco-btn-secondary {
+  background: transparent;
+  color: var(--m3-primary);
+  border: 1px solid var(--m3-outline);
+  border-radius: var(--m3-shape-full);
+  padding: 13px 24px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  position: relative;
+  overflow: hidden;
+  transition: background var(--m3-duration-short) var(--m3-emphasized);
+}
+.eco-btn-secondary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--m3-primary);
+  opacity: 0;
+  transition: opacity var(--m3-duration-short) var(--m3-emphasized);
+  pointer-events: none;
+}
+.eco-btn-secondary:hover::before { opacity: var(--m3-state-hover); }
+.eco-btn-secondary:active::before { opacity: var(--m3-state-pressed); }
+
+.eco-status {
+  font-size: 13px;
+  color: var(--m3-on-surface-variant);
+  margin-top: 8px;
+}
+
+/* ---- Profile menu (M3 Menu) ---- */
+.eco-profile-menu {
+  position: absolute;
+  top: 60px; right: 8px;
+  background: var(--m3-surface-container);
+  padding: 8px 0;
+  border-radius: var(--m3-shape-xs);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.12);
+  display: none;
+  min-width: 220px;
+  z-index: 50;
+  animation: m3MenuIn var(--m3-duration-short) var(--m3-emphasized-decel);
+  transform-origin: top right;
+}
+@keyframes m3MenuIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.eco-profile-menu.open { display: block; }
+.eco-profile-menu .eco-profile-header {
+  font-weight: 500;
+  color: var(--m3-on-surface);
+  margin: 8px 16px 4px;
+  font-size: 15px;
+}
+.eco-profile-menu .eco-profile-sub {
+  font-size: 13px;
+  color: var(--m3-on-surface-variant);
+  margin: 0 16px 8px;
+}
+.eco-profile-menu .eco-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  color: var(--m3-on-surface);
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  transition: background var(--m3-duration-short) var(--m3-emphasized);
+}
+.eco-profile-menu .eco-menu-item:hover {
+  background: color-mix(in srgb, var(--m3-on-surface) 8%, transparent);
+}
+.eco-profile-menu .eco-menu-item:active {
+  background: color-mix(in srgb, var(--m3-on-surface) 12%, transparent);
+}
+
+/* ---- Reports list (M3 Cards) ---- */
+.eco-reports-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* ---- Reports Hero Banner ---- */
+.eco-reports-hero {
+  position: relative;
+  border-radius: var(--m3-shape-lg, 20px);
+  overflow: hidden;
+  margin-bottom: 14px;
+  min-height: 200px;
+  max-height: 280px;
+}
+.eco-reports-hero-img {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  max-height: 280px;
+  object-fit: cover;
+  display: block;
+}
+.eco-reports-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.50) 50%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px 20px;
+}
+.eco-reports-hero-overlay h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  line-height: 1.2;
+}
+.eco-reports-hero-overlay p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Hero clickable & zoom hint */
+.eco-hero-clickable {
+  cursor: zoom-in;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.eco-hero-clickable:hover {
+  transform: scale(1.005);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+}
+.eco-hero-clickable:active {
+  transform: scale(0.998);
+}
+.eco-hero-zoom-hint {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.eco-hero-clickable:hover .eco-hero-zoom-hint {
+  opacity: 1;
+}
+
+/* Tip card image wrapper with zoom overlay */
+.eco-tip-img-wrap {
+  position: relative;
+  border-radius: var(--m3-shape-sm);
+  overflow: hidden;
+}
+.eco-tip-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  border-radius: var(--m3-shape-sm);
+}
+.eco-tip-card:hover .eco-tip-img-overlay {
+  opacity: 1;
+}
+.eco-tip-card:hover .eco-tip-img-wrap img {
+  transform: scale(1.05);
+}
+
+/* ---- Emergency contacts card ---- */
+.eco-contacts-card {
+  background: var(--m3-surface-container-low);
+  border-radius: var(--m3-shape-xl);
+  border: 1px solid color-mix(in srgb, var(--m3-outline-variant) 70%, transparent);
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  transition: background var(--m3-duration-medium) var(--m3-emphasized);
+}
+.eco-contacts-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.eco-contacts-header h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--m3-on-surface);
+}
+.eco-contacts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.eco-contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--m3-surface-container);
+  padding: 10px 14px;
+  border-radius: var(--m3-shape-md, 14px);
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.eco-contact-item:hover {
+  background: var(--m3-surface-container-high);
+  transform: translateY(-1px);
+}
+.eco-contact-item:active {
+  transform: scale(0.98);
+}
+.eco-contact-info strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--m3-on-surface);
+  line-height: 1.3;
+}
+.eco-contact-info small {
+  display: block;
+  font-size: 11px;
+  color: var(--m3-on-surface-variant);
+  margin-top: 1px;
+}
+.eco-contact-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--m3-primary);
+  white-space: nowrap;
+}
+
+/* WhatsApp button */
+.eco-whatsapp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--m3-shape-md, 14px);
+  background: #25D366;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
+}
+.eco-whatsapp-btn:hover {
+  background: #1fba59;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+}
+.eco-whatsapp-btn:active {
+  transform: scale(0.98);
+}
+
+.eco-report-item {
+  background: var(--m3-surface-container-low);
+  border-radius: var(--m3-shape-md);
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border: 1px solid var(--m3-outline-variant);
+  transition: background var(--m3-duration-short) var(--m3-emphasized),
+              transform var(--m3-duration-short) var(--m3-emphasized);
+}
+.eco-report-item:hover {
+  background: var(--m3-surface-container);
+  transform: translateY(-1px);
+}
+.eco-report-item img {
+  width: 64px; height: 64px;
+  border-radius: var(--m3-shape-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--m3-surface-container-high);
+}
+.eco-report-item .eco-report-body { flex: 1; min-width: 0; }
+.eco-report-item .eco-report-meta {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 11px;
+  color: var(--m3-on-surface-variant);
+}
+.eco-report-item .eco-report-cat {
+  background: var(--m3-secondary-container);
+  color: var(--m3-on-secondary-container);
+  padding: 4px 10px;
+  border-radius: var(--m3-shape-full);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+}
+.eco-report-item .eco-report-status {
+  padding: 4px 10px;
+  border-radius: var(--m3-shape-full);
+  font-weight: 500;
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.eco-report-item h4 { margin: 0 0 4px; font-size: 15px; color: var(--m3-on-surface); font-weight: 500; }
+.eco-report-item p { margin: 0; font-size: 13px; color: var(--m3-on-surface-variant); line-height: 1.4; }
+
+.eco-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--m3-on-surface-variant);
+  font-size: 14px;
+}
+
+/* M3 Circular Progress Indicator */
+.eco-spinner {
+  display: inline-block;
+  width: 24px; height: 24px;
+  border: 3px solid color-mix(in srgb, var(--m3-primary) 20%, transparent);
+  border-top-color: var(--m3-primary);
+  border-radius: 50%;
+  animation: ecoSpin 0.9s linear infinite;
+}
+@keyframes ecoSpin { to { transform: rotate(360deg); } }
+
+/* Medium-zoom override */
+.medium-zoom-overlay {
+  background: var(--m3-scrim) !important;
+  z-index: 200 !important;
+}
+.medium-zoom-image { z-index: 201 !important; }
+
+/* Theme toggle button visual */
+.eco-icon-btn.theme-dark {
+  background: var(--m3-primary-container);
+  color: var(--m3-on-primary-container);
+}
+.eco-icon-btn.theme-dark::before { background: var(--m3-on-primary-container); }
+
+/* App icon */
+.eco-app-icon {
+  width: 32px; height: 32px;
+  object-fit: cover;
+  border-radius: var(--m3-shape-sm);
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+/* ---- Tips cards — M3 Elevated Card with image header ---- */
+.eco-tip-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+.eco-tip-card {
+  background: var(--m3-surface-container-low);
+  border-radius: var(--m3-shape-lg, 16px);
+  padding: 0;
+  cursor: pointer;
+  transition: transform var(--m3-duration-medium) var(--m3-emphasized),
+              box-shadow var(--m3-duration-medium) var(--m3-emphasized),
+              background var(--m3-duration-medium) var(--m3-emphasized);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--m3-outline-variant);
+}
+.eco-tip-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  background: var(--m3-surface-container);
+}
+.eco-tip-card img {
+  width: 100%; height: 160px;
+  object-fit: cover;
+  background: var(--m3-surface-container-high);
+  transition: transform 0.35s cubic-bezier(0.2, 0, 0, 1);
+}
+.eco-tip-card:hover img { transform: scale(1.06); }
+.eco-tip-card .eco-tip-text-area {
+  padding: 12px 14px 14px;
+}
+.eco-tip-card h4 { margin: 0 0 4px; font-size: 15px; color: var(--m3-on-surface); font-weight: 600; }
+.eco-tip-card p { margin: 0; font-size: 12.5px; color: var(--m3-on-surface-variant); line-height: 1.4; }
+.eco-tip-card .eco-tip-emoji {
+  position: absolute;
+  top: 130px; right: 12px;
+  background: var(--m3-primary);
+  color: var(--m3-on-primary);
+  border-radius: var(--m3-shape-full);
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 19px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+}
+
+/* ---- FAB (Floating Action Button) — M3 ---- */
+.eco-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 96px;
+  z-index: 25;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--m3-shape-lg);
+  background: var(--m3-primary-container);
+  color: var(--m3-on-primary-container);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.1);
+  transition: box-shadow var(--m3-duration-short) var(--m3-emphasized),
+              transform var(--m3-duration-short) var(--m3-emphasized),
+              background var(--m3-duration-short) var(--m3-emphasized);
+}
+.eco-fab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--m3-duration-short) var(--m3-emphasized);
+  pointer-events: none;
+  border-radius: inherit;
+}
+.eco-fab:hover::before { opacity: var(--m3-state-hover); }
+.eco-fab:active::before { opacity: var(--m3-state-pressed); }
+.eco-fab:hover { transform: scale(1.05); box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
+
+/* ---- Chips (filter chips M3) ---- */
+.eco-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--m3-shape-sm);
+  border: 1px solid var(--m3-outline);
+  background: transparent;
+  color: var(--m3-on-surface-variant);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--m3-duration-short) var(--m3-emphasized),
+              border-color var(--m3-duration-short) var(--m3-emphasized);
+}
+.eco-chip:hover { background: color-mix(in srgb, var(--m3-on-surface) 8%, transparent); }
+.eco-chip.selected {
+  background: var(--m3-secondary-container);
+  color: var(--m3-on-secondary-container);
+  border-color: transparent;
+}
+
+/* ---- Section header (M3 Title Medium) ---- */
+.eco-section-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--m3-on-surface);
+  letter-spacing: 0.15px;
+  margin: 16px 0 8px;
+}
+
+/* ---- Responsive tweaks ---- */
+@media (min-height: 800px) {
+  .eco-carousel-wrap { height: 320px; }
+}
+
+@media (max-width: 360px) {
+  .eco-cards, .eco-tip-grid { grid-template-columns: 1fr; }
+  .eco-action-btn { padding: 14px 12px; }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===================================================================
+   Responsive grid overrides — MUST come after component base rules
+   so the cascade wins on wider viewports.
+   =================================================================== */
+
+/* Mobile (< 768px) — single or double column, native mobile feel.
+   Desktop (≥ 768px) — handled by the responsive layout section above
+   (3 cols on tablet, 4 cols on desktop). */
+@media (max-width: 767px) {
+  .eco-cards { grid-template-columns: repeat(2, 1fr); }
+  .eco-tip-grid { grid-template-columns: repeat(2, 1fr); }
+  .eco-reports-list { display: flex; flex-direction: column; }
+}
+
+/* Info screen: keep readable but flush with the rest of the content */
+@media (min-width: 768px) {
+  .eco-screen.active > .eco-info-card:only-child {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 24px 28px;
+  }
+}
+
+/* ===================================================================
+   Dark mode — Comprehensive overrides
+   =================================================================== */
+
+/* Bottom nav in dark */
+:root[data-theme="dark"] .eco-bottom-nav {
+  background: color-mix(in srgb, var(--m3-surface-container-high) 92%, transparent);
+  border-color: var(--m3-outline-variant);
+}
+:root[data-theme="dark"] .eco-nav-btn {
+  color: color-mix(in srgb, var(--m3-on-surface-variant) 75%, transparent);
+}
+:root[data-theme="dark"] .eco-nav-btn .label {
+  color: color-mix(in srgb, var(--m3-on-surface-variant) 75%, transparent);
+}
+:root[data-theme="dark"] .eco-nav-btn:hover .icon-wrap {
+  background: color-mix(in srgb, var(--m3-on-surface) 12%, transparent);
+}
+:root[data-theme="dark"] .eco-nav-btn.active {
+  color: #95d4a3;
+}
+:root[data-theme="dark"] .eco-nav-btn.active .icon-wrap {
+  background: #1a7a3e;
+}
+:root[data-theme="dark"] .eco-nav-btn.active .label {
+  color: #95d4a3;
+}
+
+/* Primary button — solid dark green + white text + glow */
+:root[data-theme="dark"] .eco-btn-primary {
+  background: #146234;
+  color: #ffffff !important;
+  border: 1.5px solid #2f8f4a;
+  box-shadow: 0 0 16px -4px color-mix(in srgb, #2f8f4a 40%, transparent), 0 2px 6px rgba(0,0,0,0.3);
+}
+:root[data-theme="dark"] .eco-btn-primary:hover {
+  background: #1a7a3e;
+  box-shadow: 0 0 22px -4px color-mix(in srgb, #2f8f4a 50%, transparent), 0 3px 8px rgba(0,0,0,0.35);
+}
+
+/* Secondary button — visible border + bright text */
+:root[data-theme="dark"] .eco-btn-secondary {
+  color: #95d4a3;
+  border-color: #2f8f4a;
+  background: rgba(47, 143, 74, 0.08);
+}
+:root[data-theme="dark"] .eco-btn-secondary:hover {
+  background: rgba(47, 143, 74, 0.16);
+}
+
+/* Chips — brighter border + green tint when selected */
+:root[data-theme="dark"] .eco-chip {
+  border-color: #2f8f4a;
+  color: #bfc9ba;
+}
+:root[data-theme="dark"] .eco-chip:hover {
+  background: rgba(47, 143, 74, 0.1);
+}
+:root[data-theme="dark"] .eco-chip.selected {
+  background: #1a7a3e;
+  color: #ffffff;
+  border-color: #2f8f4a;
+}
+
+/* Info card — stronger border + brighter text */
+:root[data-theme="dark"] .eco-info-card {
+  background: #1a211c;
+  border-color: #2f4a35;
+  box-shadow: 0 0 20px -6px rgba(47, 143, 74, 0.12),
+              0 2px 8px rgba(0, 0, 0, 0.4);
+}
+:root[data-theme="dark"] .eco-info-card h3 { color: #e8f0ea; }
+:root[data-theme="dark"] .eco-info-card p { color: #c4d0c6; }
+:root[data-theme="dark"] .eco-info-card li { color: #a8b5ab; }
+
+/* Ometepe info section — dark mode */
+:root[data-theme="dark"] .eco-ometepe-info {
+  background: #1a211c;
+  border-color: #2f4a35;
+  box-shadow: 0 0 20px -6px rgba(47, 143, 74, 0.12),
+              0 2px 8px rgba(0, 0, 0, 0.4);
+}
+:root[data-theme="dark"] .eco-ometepe-info p { color: #a8b5ab; }
+:root[data-theme="dark"] .eco-ometepe-info strong { color: #6ecf8e; }
+:root[data-theme="dark"] .eco-ometepe-stat {
+  background: #1f2923;
+}
+:root[data-theme="dark"] .eco-ometepe-stat:hover {
+  background: #253029;
+}
+:root[data-theme="dark"] .eco-ometepe-stat strong { color: #e8f0ea; }
+:root[data-theme="dark"] .eco-ometepe-stat small { color: #8a9b8e; }
+:root[data-theme="dark"] .eco-ometepe-alert {
+  background: color-mix(in srgb, #c04b3a 12%, #1a211c);
+  border-color: color-mix(in srgb, #c04b3a 25%, transparent);
+}
+:root[data-theme="dark"] .eco-ometepe-alert strong { color: #e87060; }
+:root[data-theme="dark"] .eco-ometepe-alert p { color: #a8b5ab; }
+
+/* Contacts card — dark mode */
+:root[data-theme="dark"] .eco-contacts-card {
+  background: #1a211c;
+  border-color: #2f4a35;
+  box-shadow: 0 0 20px -6px rgba(47, 143, 74, 0.12),
+              0 2px 8px rgba(0, 0, 0, 0.4);
+}
+:root[data-theme="dark"] .eco-contacts-header h4 { color: #e8f0ea; }
+:root[data-theme="dark"] .eco-contact-item {
+  background: #1f2923;
+}
+:root[data-theme="dark"] .eco-contact-item:hover {
+  background: #253029;
+}
+:root[data-theme="dark"] .eco-contact-info strong { color: #e8f0ea; }
+:root[data-theme="dark"] .eco-contact-info small { color: #8a9b8e; }
+:root[data-theme="dark"] .eco-contact-phone { color: #6ecf8e; }
+
+/* Report item cards — elevated surface + green accent border */
+:root[data-theme="dark"] .eco-report-item {
+  background: #1a211c;
+  border-color: #2f4a35;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4),
+              0 0 12px -4px rgba(47, 143, 74, 0.08);
+}
+:root[data-theme="dark"] .eco-report-item:hover {
+  background: #1f2923;
+  border-color: #2f8f4a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5),
+              0 0 18px -4px rgba(47, 143, 74, 0.15);
+}
+:root[data-theme="dark"] .eco-report-item h4 { color: #e8f0ea; }
+:root[data-theme="dark"] .eco-report-item p { color: #a8b5ab; }
+:root[data-theme="dark"] .eco-report-item .eco-report-meta { color: #8a9b8e; }
+:root[data-theme="dark"] .eco-report-item .eco-report-cat {
+  background: #1a7a3e;
+  color: #ffffff;
+  border: 1px solid #2f8f4a;
+}
+:root[data-theme="dark"] .eco-report-item .eco-report-status {
+  color: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal sheet — deep surface + strong shadow */
+:root[data-theme="dark"] .eco-modal {
+  background: rgba(0, 0, 0, 0.6);
+}
+:root[data-theme="dark"] .eco-modal-sheet {
+  background: #1a211c;
+  border: 1px solid #2f4a35;
+  border-bottom: none;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5),
+              0 0 32px -8px rgba(47, 143, 74, 0.1);
+}
+:root[data-theme="dark"] .eco-modal-sheet::before {
+  background: color-mix(in srgb, #bfc9ba 40%, transparent);
+}
+
+/* Form inputs — visible border + proper dark bg */
+:root[data-theme="dark"] .eco-form select,
+:root[data-theme="dark"] .eco-form input[type="text"],
+:root[data-theme="dark"] .eco-form textarea {
+  background: #161d18;
+  border-color: #3f5a48;
+  color: #dde4da;
+}
+:root[data-theme="dark"] .eco-form select:focus,
+:root[data-theme="dark"] .eco-form input[type="text"]:focus,
+:root[data-theme="dark"] .eco-form textarea:focus {
+  border-color: #2f8f4a;
+  box-shadow: 0 0 0 1px rgba(47, 143, 74, 0.3);
+  background: #1a211c;
+}
+:root[data-theme="dark"] .eco-form label { color: #95d4a3; }
+:root[data-theme="dark"] .eco-form select option {
+  background: #1a211c;
+  color: #dde4da;
+}
+
+/* FAB — vibrant green with glow */
+:root[data-theme="dark"] .eco-fab {
+  background: #146234;
+  color: #ffffff;
+  border: 1.5px solid #2f8f4a;
+  box-shadow: 0 0 20px -4px rgba(47, 143, 74, 0.4),
+              0 4px 12px rgba(0, 0, 0, 0.5);
+}
+:root[data-theme="dark"] .eco-fab:hover {
+  background: #1a7a3e;
+  box-shadow: 0 0 28px -4px rgba(47, 143, 74, 0.5),
+              0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Action button — solid green + glow + white text */
+:root[data-theme="dark"] .eco-action-btn {
+  background: #146234;
+  color: #ffffff;
+  border: 1.5px solid #2f8f4a;
+  box-shadow: 0 0 24px -4px color-mix(in srgb, #2f8f4a 55%, transparent),
+    0 4px 16px -2px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+:root[data-theme="dark"] .eco-action-btn:hover {
+  background: #1a7a3e;
+  box-shadow: 0 0 32px -4px color-mix(in srgb, #2f8f4a 65%, transparent),
+    0 6px 20px -2px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+:root[data-theme="dark"] .eco-a-label { color: #ffffff; }
+
+/* Icon button — visible in dark */
+:root[data-theme="dark"] .eco-icon-btn { color: #bfc9ba; }
+:root[data-theme="dark"] .eco-icon-btn:hover {
+  background: rgba(47, 143, 74, 0.12);
+}
+
+/* Close button in modal */
+:root[data-theme="dark"] .eco-close {
+  color: #bfc9ba;
+  background: rgba(255, 255, 255, 0.06);
+}
+:root[data-theme="dark"] .eco-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Status message */
+:root[data-theme="dark"] .eco-status { color: #bfc9ba; }
+
+/* Empty state */
+:root[data-theme="dark"] .eco-empty { color: #8a9b8e; }
+
+/* Spinner in dark mode */
+:root[data-theme="dark"] .eco-spinner {
+  border-color: rgba(149, 212, 163, 0.2);
+  border-top-color: #95d4a3;
+}
+
+/* Detail body text in dark */
+:root[data-theme="dark"] .eco-detail-body h3 { color: #e8f0ea; }
+:root[data-theme="dark"] .eco-detail-body p { color: #c4d0c6; }
+
+/* Place cards in dark */
+:root[data-theme="dark"] .eco-card {
+  background: #1a211c;
+  border-color: #2f4a35;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+}
+:root[data-theme="dark"] .eco-card:hover {
+  background: #1f2923;
+  border-color: #2f8f4a;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5),
+              0 0 16px -4px rgba(47, 143, 74, 0.12);
+}
+:root[data-theme="dark"] .eco-card h4 { color: #e8f0ea; }
+:root[data-theme="dark"] .eco-card p { color: #a8b5ab; }
+
+/* Tip cards in dark */
+:root[data-theme="dark"] .eco-tip {
+  background: #1a211c;
+  border-color: #2f4a35;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+:root[data-theme="dark"] .eco-tip:hover {
+  background: #1f2923;
+  border-color: #2f8f4a;
+}
+:root[data-theme="dark"] .eco-tip h4 { color: #e8f0ea; }
+:root[data-theme="dark"] .eco-tip p { color: #a8b5ab; }
+
+/* Profile menu in dark */
+:root[data-theme="dark"] .eco-profile-menu {
+  background: #1a211c;
+  border: 1px solid #2f4a35;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5),
+              0 0 16px -4px rgba(47, 143, 74, 0.1);
+}
+:root[data-theme="dark"] .eco-profile-menu .eco-profile-header { color: #e8f0ea; }
+:root[data-theme="dark"] .eco-profile-menu .eco-profile-sub { color: #8a9b8e; }
+:root[data-theme="dark"] .eco-profile-menu .eco-menu-item { color: #dde4da; }
+:root[data-theme="dark"] .eco-profile-menu .eco-menu-item:hover {
+  background: rgba(47, 143, 74, 0.12);
+}
+
+/* Leaflet map dark overrides */
+:root[data-theme="dark"] .leaflet-popup-content-wrapper {
+  background: #1a211c;
+  color: #dde4da;
+  border: 1px solid #2f4a35;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+:root[data-theme="dark"] .leaflet-popup-tip {
+  background: #1a211c;
+}
+:root[data-theme="dark"] .leaflet-control-zoom a {
+  background: #1a211c;
+  color: #95d4a3;
+  border-color: #2f4a35;
+}
+:root[data-theme="dark"] .leaflet-control-zoom a:hover {
+  background: #1f2923;
+}
+:root[data-theme="dark"] .leaflet-control-attribution {
+  background: rgba(14, 21, 16, 0.8);
+  color: #8a9b8e;
+}
+:root[data-theme="dark"] .leaflet-control-attribution a {
+  color: #95d4a3;
+}
+

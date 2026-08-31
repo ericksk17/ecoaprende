@@ -1,0 +1,115 @@
+════════════════════════════════════════════════════════
+   ECOAPRENDE EN ANDROID STUDIO - GUÍA PASO A PASO
+════════════════════════════════════════════════════════
+
+El proyecto ya viene preparado con Capacitor. La carpeta
+"android/" es un proyecto Android NATIVO completo que
+Android Studio abre y compila directamente.
+
+
+────────────────────────────────────────────
+ PASO 1: INSTALAR ANDROID STUDIO (si no lo tienes)
+────────────────────────────────────────────
+Descárgalo gratis en: https://developer.android.com/studio
+Al instalarlo, acepta que descargue el SDK de Android.
+
+
+────────────────────────────────────────────
+ PASO 2: PREPARAR EL PROYECTO EN TU PC
+────────────────────────────────────────────
+1. Descomprime EcoAprende-proyecto-completo.zip
+2. Abre una terminal en la carpeta descomprimida
+3. Instala dependencias y arranca el servidor:
+
+   bun install
+   bun run dev
+
+   (o con npm:  npm install  y luego  npx next dev)
+
+   El servidor debe quedar corriendo en http://localhost:3000
+   ⚠️ NO cierres esa terminal mientras usas la app.
+
+
+────────────────────────────────────────────
+ PASO 3: ABRIR EN ANDROID STUDIO
+────────────────────────────────────────────
+1. Abre Android Studio
+2. File → Open... (Abrir)
+3. Selecciona la carpeta "android" del proyecto
+4. Espera a que sincronice Gradle (primera vez tarda
+   varios minutos, descarga dependencias automáticamente)
+5. Cuando termine verás el proyecto completo:
+   - app/java/com.ecoaprende.app/MainActivity.java
+   - app/res/ (recursos, iconos, estilos)
+   - app/AndroidManifest.xml
+   - Archivos build.gradle editables
+
+
+────────────────────────────────────────────
+ PASO 4: EJECUTAR EN EL EMULADOR
+────────────────────────────────────────────
+1. En Android Studio: Tools → Device Manager
+2. Crea un dispositivo virtual (Play Phone, Pixel, etc.)
+3. Inicia el emulador (botón ▶)
+4. Pulsa el botón verde "Run" (▶) de Android Studio
+5. La app "EcoAprende" se instala y abre en el emulador
+   conectándose a tu servidor local.
+
+
+────────────────────────────────────────────
+ PASO 4-B: EJECUTAR EN TU CELULAR REAL (USB)
+────────────────────────────────────────────
+1. Activa "Opciones de desarrollador" y "Depuración USB"
+   en tu celular
+2. Conecta el celular a la PC por cable USB
+3. En la terminal de tu PC ejecuta:
+
+   adb reverse tcp:3000 tcp:3000
+
+4. Edita capacitor.config.ts y cambia la URL:
+
+   url: 'http://10.0.2.2:3000'   ❌ (esa es del emulador)
+   url: 'http://localhost:3000'  ✅ (para celular USB)
+
+5. Ejecuta de nuevo el "Run" (▶) de Android Studio
+
+
+────────────────────────────────────────────
+ PASO 5: GENERAR EL APK INSTALABLE
+────────────────────────────────────────────
+En Android Studio: Build → Build Bundle(s)/APK(s)
+                  → Build APK(s)
+El APK queda en: android/app/build/outputs/apk/debug/
+Ese archivo lo puedes pasar a cualquier celular Android
+e instalarlo directamente.
+
+
+────────────────────────────────────────────
+ RESUMEN DE ARQUITECTURA
+────────────────────────────────────────────
+┌─────────────────┐        ┌──────────────────────┐
+│  APK EcoAprende │  --->  │ Servidor Next.js     │
+│  (interfaz)     │  WiFi/ │ (localhost:3000)     │
+│  WebView nativa │  USB   │ Base de datos SQLite │
+└─────────────────┘        └──────────────────────┘
+
+El APK es la "cara" nativa de la app; el servidor tiene
+la lógica y los datos. Por eso debe estar corriendo.
+
+
+────────────────────────────────────────────
+ CAMBIAR LA URL DEL SERVIDOR
+────────────────────────────────────────────
+Archivo: capacitor.config.ts (raíz del proyecto)
+
+- Emulador:        http://10.0.2.2:3000
+- Celular por USB: http://localhost:3000 (con adb reverse)
+- Red local WiFi:  http://192.168.x.x:3000 (IP de tu PC)
+- Internet:        https://tu-dominio.com
+
+Después de cambiarlo, sincroniza y vuelve a compilar:
+   npx cap sync android
+
+
+¿Problemas? Verifica que el servidor esté corriendo:
+   En tu PC abre http://localhost:3000 en el navegador.

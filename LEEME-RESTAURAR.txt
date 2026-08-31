@@ -1,0 +1,64 @@
+==============================================
+  EcoAprende - Proyecto Completo
+==============================================
+
+CONTENIDO DEL ZIP:
+- src/            → Todo el código fuente (Next.js 16 + React + TypeScript)
+- public/         → Imágenes, iconos, logos y assets de la app
+- prisma/         → Esquema de la base de datos
+- db/             → Base de datos SQLite con todos tus datos (reportes, etc.)
+- upload/         → Archivos subidos por usuarios (fotos de reportes)
+- package.json    → Lista de dependencias
+- Configuración completa (tailwind, tsconfig, next.config, etc.)
+
+NO INCLUIDO (se regenera solo):
+- node_modules/   → Se descarga con el comando de instalación
+- .next/          → Cache de compilación, se genera solo
+
+
+==============================================
+  CÓMO RESTAURAR / EJECUTAR EN OTRA PC
+==============================================
+
+REQUISITOS:
+1. Node.js 18 o superior (https://nodejs.org)
+2. Bun (opcional pero recomendado): https://bun.sh
+
+PASOS:
+
+1. Descomprime el ZIP en una carpeta, por ejemplo:
+   C:\proyectos\ecoaprende    (Windows)
+   ~/proyectos/ecoaprende    (Linux/Mac)
+
+2. Abre una terminal DENTRO de esa carpeta y ejecuta:
+
+   Con Bun (recomendado, más rápido):
+   -------------------------------
+   bun install
+   bun run dev
+
+   Con npm:
+   -------------------------------
+   npm install
+   npx next dev
+
+3. Abre tu navegador en:
+   http://localhost:3000
+
+4. Listo. La app corre con toda tu base de datos incluida (db/custom.db)
+   y todas las fotos subidas (upload/).
+
+
+==============================================
+  NOTAS IMPORTANTES
+==============================================
+- La base de datos SQLite ya viene con TODOS tus datos actuales.
+- Si vas a desplegar en producción: npx next build && npx next start
+- Para adaptarlo a Android en el futuro: el código es compatible
+  con Capacitor (opción recomendada conversada).
+- Los efectos "liquid glass" de la barra inferior y el header móvil
+  están en src/app/globals.css
+- Los cambios recientes (nav flotante + header alineado) YA están
+  incluidos en este ZIP.
+
+Fecha del empaquetado: 31 de agosto de 2026

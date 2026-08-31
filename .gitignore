@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.*
+
+# Next.js
+.next/
+/out/
+
+# Production build
+/build
+
+# Database (local)
+db/*.db
+db/*.db-journal
+
+# Uploaded files (use cloud storage in production)
+/upload/
+
+# Android build
+android/.gradle/
+android/app/build/
+android/build/
+android/captures/
+android/local.properties
+
+# Capacitor generated (regenerable)
+android/app/src/main/assets/
+
+# Misc
+.DS_Store
+*.pem
+Thumbs.db
+
+# Debug logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Environment variables
+.env*
+!.env.example
+
+# Vercel
+.vercel/
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Skills / internal (not part of the app)
+/skills/
+.claude
+.z-ai-config
+local-*
+test
+prompt
+tool-results/
+examples/
+mini-services/
+backups/
+worklog.md
+scripts/*.png

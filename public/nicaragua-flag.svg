@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" width="900" height="540">
+  <!-- Nicaragua flag: blue-white-blue horizontal stripes (3:5) -->
+  <rect width="900" height="540" fill="#ffffff"/>
+  <rect width="900" height="180" fill="#1A4FA0"/>
+  <rect y="360" width="900" height="180" fill="#1A4FA0"/>
+  <!-- Coat of arms (simplified) centered on white stripe -->
+  <g transform="translate(450,270)">
+    <!-- Outer ring -->
+    <circle r="92" fill="#ffffff" stroke="#d4af37" stroke-width="3"/>
+    <!-- Yellow/golden border text ring (suggested with arcs) -->
+    <circle r="88" fill="none" stroke="#d4af37" stroke-width="1.2"/>
+    <!-- Inner triangle (volcanoes) -->
+    <polygon points="0,-55 -70,40 70,40" fill="#1A4FA0" stroke="#d4af37" stroke-width="1.5"/>
+    <!-- Volcano peaks -->
+    <polygon points="-25,-10 -45,40 -5,40" fill="#ffffff"/>
+    <polygon points="0,-30 -20,40 20,40" fill="#ffffff"/>
+    <polygon points="25,-10 5,40 45,40" fill="#ffffff"/>
+    <!-- Rainbow over volcanoes -->
+    <path d="M -60 -20 A 60 60 0 0 1 60 -20" fill="none" stroke="#d4af37" stroke-width="2"/>
+    <!-- Sun rays -->
+    <g stroke="#d4af37" stroke-width="1.4" fill="none">
+      <line x1="0" y1="-72" x2="0" y2="-62"/>
+      <line x1="-30" y1="-66" x2="-26" y2="-57"/>
+      <line x1="30" y1="-66" x2="26" y2="-57"/>
+      <line x1="-52" y1="-50" x2="-45" y2="-44"/>
+      <line x1="52" y1="-50" x2="45" y2="-44"/>
+      <line x1="-66" y1="-26" x2="-57" y2="-23"/>
+      <line x1="66" y1="-26" x2="57" y2="-23"/>
+    </g>
+    <!-- Water lines below volcanoes -->
+    <path d="M -75 45 Q -50 38 -25 45 T 25 45 T 75 45" fill="none" stroke="#1A4FA0" stroke-width="2"/>
+    <path d="M -75 52 Q -50 45 -25 52 T 25 52 T 75 52" fill="none" stroke="#1A4FA0" stroke-width="2"/>
+  </g>
+</svg>
