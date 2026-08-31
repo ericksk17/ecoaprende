@@ -135,7 +135,7 @@ export const places: Place[] = [
     id: 'reserva_pena_inculta',
     title: 'Reserva Natural Peña Inculta — Perla la Urraca',
     gallery: [
-      '/peña.jpg',
+      '/pena-inculta.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/2/20/European_magpie_Pica_pica.jpg',
     ],
     type: 'protected',
