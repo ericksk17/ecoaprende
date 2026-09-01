@@ -1,60 +1,249 @@
-export default function PrivacyPolicy() {
+"use client"
+
+import { useRouter } from "next/navigation"
+import { ArrowLeft, Shield, Lock, Eye, Bell, Database, Trash2, UserCheck, Mail, Smartphone } from "lucide-react"
+
+export default function PrivacyPage() {
+  const router = useRouter()
+
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto', padding: 40, lineHeight: 1.7 }}>
-      <h1 style={{ color: '#2E7D32' }}>Política de Privacidad - EcoAprende</h1>
-      <p style={{ color: '#888' }}>Última actualización: 1 de septiembre de 2026</p>
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <div className="sticky top-0 z-50 bg-primary text-primary-foreground">
+        <div className="max-w-2xl mx-auto px-4 py-4 flex items-center gap-3">
+          <button
+            onClick={() => router.back()}
+            className="p-2 rounded-lg hover:bg-white/20 transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div>
+            <h1 className="text-lg font-bold">Política de Privacidad</h1>
+            <p className="text-xs opacity-80">EcoAprende</p>
+          </div>
+        </div>
+      </div>
 
-      <h2 style={{ color: '#388E3C', marginTop: 28 }}>1. Información que recopilamos</h2>
-      <p>EcoAprende es una aplicación educativa diseñada para el aprendizaje sobre ecología y medio ambiente. Para brindarte nuestros servicios, podemos recopilar la siguiente información:</p>
-      <ul>
-        <li><strong>Fotos e imágenes:</strong> Cuando utilizas la función de cámara del dispositivo o seleccionas imágenes de tu galería para actividades dentro de la app. Estas imágenes se procesan localmente en tu dispositivo.</li>
-        <li><strong>Información de uso:</strong> Datos sobre cómo interactúas con la aplicación, utilizados exclusivamente para mejorar la experiencia educativa.</li>
-        <li><strong>Información del dispositivo:</strong> Modelo del dispositivo, versión del sistema operativo y configuración regional.</li>
-      </ul>
+      {/* Content */}
+      <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
+        
+        {/* Fecha */}
+        <p className="text-sm text-muted-foreground">
+          Última actualización: {new Date().toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" })}
+        </p>
 
-      <h2 style={{ color: '#388E3C', marginTop: 28 }}>2. Permisos que solicitamos</h2>
-      <ul>
-        <li><strong>Cámara (CAMERA):</strong> Permite tomar fotografías para actividades educativas relacionadas con el medio ambiente.</li>
-        <li><strong>Acceso a imágenes (READ_MEDIA_IMAGES):</strong> Permite seleccionar imágenes de tu galería para actividades de la aplicación.</li>
-        <li><strong>Conexión a Internet:</strong> Permite cargar el contenido educativo desde nuestros servidores.</li>
-      </ul>
+        {/* Sección 1 */}
+        <section className="bg-card rounded-xl p-5 border">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+              <Database className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            </div>
+            <h2 className="font-bold text-lg">1. Información que recopilamos</h2>
+          </div>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0" />
+              <span><strong className="text-foreground">Datos de cuenta:</strong> correo electrónico y nombre</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0" />
+              <span><strong className="text-foreground">Reportes ambientales:</strong> categoría, descripción, ubicación y fotos</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0" />
+              <span><strong className="text-foreground">Datos de uso:</strong> interacciones dentro de la aplicación</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0" />
+              <span><strong className="text-foreground">Datos del dispositivo:</strong> modelo y versión del sistema operativo</span>
+            </li>
+          </ul>
+        </section>
 
-      <h2 style={{ color: '#388E3C', marginTop: 28 }}>3. Cómo utilizamos tu información</h2>
-      <ul>
-        <li>Proporcionar y mantener el servicio educativo de EcoAprende.</li>
-        <li>Mejorar y personalizar la experiencia de aprendizaje.</li>
-        <li>Garantizar el correcto funcionamiento técnico de la aplicación.</li>
-        <li>Generar estadísticas de uso anónimas para la mejora continua.</li>
-      </ul>
+        {/* Sección 2 */}
+        <section className="bg-card rounded-xl p-5 border">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
+              <Eye className="w-5 h-5 text-green-600 dark:text-green-400" />
+            </div>
+            <h2 className="font-bold text-lg">2. Cómo usamos la información</h2>
+          </div>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 w-1.5 h-1.5 bg-green-500 rounded-full shrink-0" />
+              Proporcionar y mejorar los servicios de la aplicación
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 w-1.5 h-1.5 bg-green-500 rounded-full shrink-0" />
+              Procesar y gestionar reportes ambientales
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 w-1.5 h-1.5 bg-green-500 rounded-full shrink-0" />
+              Comunicarnos con usted sobre su cuenta
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 w-1.5 h-1.5 bg-green-500 rounded-full shrink-0" />
+              Mejorar la experiencia del usuario
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 w-1.5 h-1.5 bg-green-500 rounded-full shrink-0" />
+              Cumplir con obligaciones legales
+            </li>
+          </ul>
+        </section>
 
-      <h2 style={{ color: '#388E3C', marginTop: 28 }}>4. Compartición de información</h2>
-      <p>EcoAprende <strong>no vende, alquila ni comparte</strong> tu información personal con terceros con fines comerciales.</p>
+        {/* Sección 3 */}
+        <section className="bg-card rounded-xl p-5 border">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+              <Shield className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+            </div>
+            <h2 className="font-bold text-lg">3. Compartir información</h2>
+          </div>
+          <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-3 mb-3">
+            <p className="text-sm font-semibold text-red-700 dark:text-red-400">
+              No vendemos sus datos personales.
+            </p>
+          </div>
+          <p className="text-sm text-muted-foreground mb-2">Solo compartimos información cuando:</p>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 w-1.5 h-1.5 bg-purple-500 rounded-full shrink-0" />
+              Usted lo autoriza explícitamente
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 w-1.5 h-1.5 bg-purple-500 rounded-full shrink-0" />
+              Es necesario para cumplir con la ley
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 w-1.5 h-1.5 bg-purple-500 rounded-full shrink-0" />
+              Para proteger los derechos y seguridad de los usuarios
+            </li>
+          </ul>
+        </section>
 
-      <h2 style={{ color: '#388E3C', marginTop: 28 }}>5. Almacenamiento y seguridad de datos</h2>
-      <p>Los datos se almacenan principalmente de forma local en tu dispositivo. Utilizamos conexiones cifradas (HTTPS) para toda comunicación con nuestros servidores.</p>
+        {/* Sección 4 */}
+        <section className="bg-card rounded-xl p-5 border">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
+              <Lock className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+            </div>
+            <h2 className="font-bold text-lg">4. Almacenamiento y seguridad</h2>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Sus datos se almacenan en servidores seguros con cifrado. Implementamos medidas de seguridad para proteger su información, pero ningún sistema es 100% seguro.
+          </p>
+        </section>
 
-      <h2 style={{ color: '#388E3C', marginTop: 28 }}>6. Privacidad de menores</h2>
-      <p>No recopilamos intencionalmente información personal identificable de niños sin el consentimiento previo de un padre, madre o tutor legal.</p>
+        {/* Sección 5 */}
+        <section className="bg-card rounded-xl p-5 border">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-cyan-100 dark:bg-cyan-900/30 rounded-lg">
+              <Smartphone className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+            </div>
+            <h2 className="font-bold text-lg">5. Permisos del dispositivo</h2>
+          </div>
+          <ul className="space-y-3 text-sm text-muted-foreground">
+            <li className="flex items-start gap-3 bg-muted/50 rounded-lg p-3">
+              <span className="text-lg">📷</span>
+              <div>
+                <strong className="text-foreground">Cámara</strong>
+                <p className="text-xs mt-0.5">Para tomar fotos en reportes ambientales</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3 bg-muted/50 rounded-lg p-3">
+              <span className="text-lg">📍</span>
+              <div>
+                <strong className="text-foreground">Ubicación</strong>
+                <p className="text-xs mt-0.5">Para geolocalizar reportes ambientales</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3 bg-muted/50 rounded-lg p-3">
+              <span className="text-lg">🔔</span>
+              <div>
+                <strong className="text-foreground">Notificaciones</strong>
+                <p className="text-xs mt-0.5">Para enviar actualizaciones sobre sus reportes</p>
+              </div>
+            </li>
+          </ul>
+          <p className="text-xs text-muted-foreground mt-3">
+            Puede revocar estos permisos en cualquier momento desde la configuración de su dispositivo.
+          </p>
+        </section>
 
-      <h2 style={{ color: '#388E3C', marginTop: 28 }}>7. Retención de datos</h2>
-      <p>Conservamos tu información personal únicamente durante el tiempo necesario para cumplir con las finalidades descritas. Los datos locales se conservan hasta que desinstales la aplicación.</p>
+        {/* Sección 6 */}
+        <section className="bg-card rounded-xl p-5 border">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
+              <Trash2 className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+            </div>
+            <h2 className="font-bold text-lg">6. Retención de datos</h2>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Conservamos sus datos mientras su cuenta esté activa o según sea necesario para proporcionar nuestros servicios. Puede solicitar la eliminación de su cuenta y datos en cualquier momento.
+          </p>
+        </section>
 
-      <h2 style={{ color: '#388E3C', marginTop: 28 }}>8. Tus derechos</h2>
-      <ul>
-        <li>Acceder a tu información personal.</li>
-        <li>Solicitar corrección o eliminación de datos.</li>
-        <li>Revocar permisos desde la configuración de tu dispositivo.</li>
-        <li>Desinstalar la aplicación y eliminar todos los datos asociados.</li>
-      </ul>
+        {/* Sección 7 */}
+        <section className="bg-card rounded-xl p-5 border">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-teal-100 dark:bg-teal-900/30 rounded-lg">
+              <UserCheck className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+            </div>
+            <h2 className="font-bold text-lg">7. Sus derechos</h2>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {["Acceder a sus datos", "Rectificar datos", "Eliminar sus datos", "Exportar sus datos", "Revocar consentimiento", "Oponerse al uso"].map((right) => (
+              <div key={right} className="flex items-center gap-2 bg-muted/50 rounded-lg px-3 py-2">
+                <span className="text-teal-500">✓</span>
+                <span className="text-sm text-foreground">{right}</span>
+              </div>
+            ))}
+          </div>
+        </section>
 
-      <h2 style={{ color: '#388E3C', marginTop: 28 }}>9. Cambios a esta política</h2>
-      <p>Podemos actualizar esta política periódicamente. Cualquier modificación será publicada en esta misma página.</p>
+        {/* Sección 8 */}
+        <section className="bg-card rounded-xl p-5 border">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-pink-100 dark:bg-pink-900/30 rounded-lg">
+              <Bell className="w-5 h-5 text-pink-600 dark:text-pink-400" />
+            </div>
+            <h2 className="font-bold text-lg">8. Cambios a esta política</h2>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Podemos actualizar esta política periódicamente. Le notificaremos sobre cambios significativos a través de la aplicación o por correo electrónico.
+          </p>
+        </section>
 
-      <h2 style={{ color: '#388E3C', marginTop: 28 }}>10. Contacto</h2>
-      <div style={{ background: '#E8F5E9', padding: 16, borderRadius: 8, marginTop: 16 }}>
-        <p><strong>Correo electrónico:</strong> ecoaprende.soporte@gmail.com</p>
-        <p><strong>Sitio web:</strong> https://ecoaprende.vercel.app</p>
+        {/* Contacto */}
+        <section className="bg-card rounded-xl p-5 border">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
+              <Mail className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+            </div>
+            <h2 className="font-bold text-lg">9. Contacto</h2>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Para preguntas sobre privacidad, contacte a:
+          </p>
+          <a 
+            href="mailto:soporte@ecoaprende.com" 
+            className="inline-flex items-center gap-2 mt-2 text-sm font-medium text-primary hover:underline"
+          >
+            📧 soporte@ecoaprende.com
+          </a>
+        </section>
+
+        {/* Botón volver */}
+        <button
+          onClick={() => router.back()}
+          className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-semibold text-base hover:opacity-90 transition-opacity active:scale-[0.98]"
+        >
+          Volver
+        </button>
+
+        <div className="h-8" />
       </div>
     </div>
-  );
+  )
 }
